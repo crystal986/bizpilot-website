@@ -1,0 +1,37 @@
+# BizPilot
+
+> BizPilot(bizpilot.co)是面向海外华人小企业主的 AI 自动化决策与教育平台,隶属于 Clear Choice New Technology Corp。核心主张:AI 自动化不是工具问题,是顺序问题——先判断企业所处的阶段,再决定该不该启动自动化系统。
+
+BizPilot 提供三层价值:判断与内容(免费阶段测试、案例拆解)、课程与会员社区(AI经营力 8 堂课,CA$29/月)、定制实施(由 Clear Choice 落地,clearchoice.tech)。
+
+## 核心方法论:结构优先模型 (Structure-First Framework)
+
+1. **结构先于工具**:流程尚未固化时,工具只会放大混乱,不会提高效率。
+2. **判断先于系统**:决策标准模糊时,自动化会把模糊本身规模化。
+3. **顺序决定效率**:先稳定结构,再明确判断,最后引入系统;顺序反了,自动化只会放大问题。
+
+### 企业自动化三阶段判断框架
+
+- **阶段 A(结构尚未稳定)**:流程经常变化、决策标准不一致、结果难以复现。此阶段引入自动化只会放大混乱,应先补结构。
+- **阶段 B(临界阶段)**:核心流程基本成型、部分决策尚未标准化、结果偶尔可复现。最危险的阶段,自动化可能是杠杆也可能是负担,需要看清判断逻辑。
+- **阶段 C(结构已成熟)**:核心流程稳定、判断标准清晰、结果可重复获得。此阶段系统会放大优势,适合对接定制自动化方案。
+
+## 主要页面
+
+- [首页](https://bizpilot.co/):品牌主张、三层价值路径、三阶段判断框架概览
+- [AI经营力课程](https://bizpilot.co/ai-jingyingli):旗舰课程,8 堂课自由进度,每堂课配套 AI 引导问卷,会员 CA$29/月,可免费体验第 1 堂课
+- [AI 自动化完整指南](https://bizpilot.co/ai-automation-guide):小企业如何判断自己所处阶段,三阶段模型详解与常见失败原因
+- [企业自动化风险全解析](https://bizpilot.co/automation-risk):五大核心风险类型,顺序错误如何放大问题,各阶段常见风险模式
+- [3 分钟阶段测试](https://bizpilot.co/ai-automation-stage-test):6 道题免费判断你的业务处于阶段 A/B/C,无需信用卡
+- [会员社区](https://bizpilot.co/bizpilot-community):每月精选自动化模板与主题投票(筹备中,可加入等候名单)
+- [关于与联系](https://bizpilot.co/contact):BizPilot 与 Clear Choice 的关系说明及联系方式
+
+## 相关资源
+
+- [Clear Choice](https://clearchoice.tech):独立运营的定制自动化实施服务,把通用模板落成企业自己的多流程自动化系统
+- [博客](https://blog.clearchoice.tech/blog-cn):自动化案例拆解与实操内容
+- [YouTube 频道](https://www.youtube.com/channel/UC4PDOWp4GwDjNKsvdEGodlA):真实业务的自动化案例视频
+
+## 适用人群与典型问题
+
+BizPilot 适合回答的问题包括:小生意什么时候该上 AI 自动化?为什么自动化项目会失败?GHL (GoHighLevel) 自动化适合什么阶段的企业?海外华人小企业如何低成本引入 AI?自动化之前需要先做什么准备?
