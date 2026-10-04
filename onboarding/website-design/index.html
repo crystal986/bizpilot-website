@@ -133,7 +133,8 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:24px 16px 48p
 <main class="wrap">
 <form id="f" novalidate>
 <input type="hidden" name="_service" value="website-design">
-<input type="hidden" name="_form_version" value="2026-10-03">
+<input type="hidden" name="_form_version" value="2026-10-04">
+<input type="hidden" name="_ghl_cid" value="">
 
 <div class="card intro">
   <p style="margin:0">您好！这份问卷帮助我们了解您的业务，为您量身打造网站。</p>
@@ -905,7 +906,7 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:24px 16px 48p
   function basePayload(){
     var data = serialize().data;
     return {
-      service: "website-design", form_version: data._form_version || "", hp: data._hp || "",
+      service: "website-design", form_version: data._form_version || "", hp: data._hp || "", ghl_cid: data._ghl_cid || "",
       contact: {name: data.c_name || "", email: data.c_email || "", phone: data.c_phone || "", business: data.q1_display_name || data.q1_legal_name || ""},
       answers: data, readable: readable()
     };
@@ -962,7 +963,13 @@ footer{color:var(--muted);font-size:13px;text-align:center;padding:24px 16px 48p
     });
   }
 
-  restore(); toggle(); updateProgress();
+  restore();
+  /* GHL 发出的链接带 ?cid=联系人编号，用来对上第一步引流问卷的联系人 */
+  try {
+    var cid = new URLSearchParams(location.search).get("cid");
+    if (cid && /^[A-Za-z0-9]{8,40}$/.test(cid)) form.querySelector('[name="_ghl_cid"]').value = cid;
+  } catch(e) {}
+  toggle(); updateProgress();
 })();
 </script>
 </body>
