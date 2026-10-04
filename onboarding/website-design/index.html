@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>网站设计开户问卷 | BizPilot</title>
+<style>
+:root{
+  --navy:#0f1a33; --navy-2:#16244a; --cyan:#00bfff; --blue:#0369a1; --blue-hover:#075985;
+  --ink:#16213a; --muted:#5b6478; --line:#dfe4ec; --bg:#f4f6fa; --card:#ffffff;
+  --soft:#eef7fc; --warn:#b42318; --warn-bg:#fef3f2; --ok:#067647;
+  --radius:12px;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{color-scheme:light}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Noto Sans SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif}
+header.top{background:var(--navy);color:#fff}
+header.top .wrap{display:flex;align-items:center;gap:16px;padding:18px 16px}
+header.top img{height:40px;width:auto;display:block}
+header.top .tag{margin-left:auto;font-size:13px;color:#b9c6e4;text-align:right;line-height:1.4}
+.hero{background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);color:#fff;padding:8px 0 28px}
+.hero h1{margin:0 0 4px;font-size:26px;line-height:1.3}
+.hero .en{color:#9fb0d6;font-size:15px;margin:0}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.progress{position:sticky;top:0;z-index:20;background:#fff;border-bottom:1px solid var(--line);box-shadow:0 1px 3px rgba(15,26,51,.05)}
+.progress .wrap{padding:10px 16px}
+.bar{height:8px;background:#e6ebf2;border-radius:99px;overflow:hidden}
+.bar span{display:block;height:100%;width:0;background:var(--cyan);transition:width .3s}
+.pmeta{display:flex;justify-content:space-between;gap:12px;font-size:13px;color:var(--muted);margin-top:6px;flex-wrap:wrap}
+.chips{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chips a{flex:0 0 auto;font-size:13px;color:var(--blue);background:var(--soft);border-radius:99px;padding:4px 10px;text-decoration:none;white-space:nowrap}
+.chips a.done{background:#e7f6ee;color:var(--ok)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin:20px 0}
+.intro ul{margin:8px 0 0;padding-left:20px}
+.intro li{margin:4px 0}
+section.card h2{margin:0 0 4px;font-size:21px}
+section.card h2 small{display:block;font-size:14px;font-weight:400;color:var(--muted);margin-top:2px}
+.note{background:var(--soft);border-left:3px solid var(--cyan);padding:10px 14px;border-radius:6px;color:#244063;font-size:14.5px;margin:12px 0}
+.q{padding:20px 0;border-top:1px solid var(--line)}
+.q:first-of-type{border-top:0}
+.q > label.title,.q > .title{display:block;font-weight:600;margin-bottom:6px}
+.num{display:inline-block;min-width:28px;color:var(--blue)}
+.req{color:var(--warn);margin-left:2px}
+.hint{color:var(--muted);font-size:14px;margin:0 0 10px}
+.q.missing{background:var(--warn-bg);margin:0 -24px;padding:20px 24px;border-radius:8px}
+.q.missing .err{display:block}
+.err{display:none;color:var(--warn);font-size:14px;margin-top:8px}
+input[type=text],input[type=email],input[type=tel],input[type=url],input[type=date],textarea,select{width:100%;font:inherit;color:inherit;background:#fff;border:1px solid #c9d1de;border-radius:8px;padding:10px 12px;min-height:44px}
+textarea{min-height:96px;resize:vertical}
+input:focus,textarea:focus,select:focus{outline:2px solid var(--cyan);outline-offset:1px;border-color:var(--cyan)}
+.opts{display:flex;flex-wrap:wrap;gap:8px 10px}
+.opts label{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;background:#fff;min-height:44px}
+.opts label:has(input:checked){border-color:var(--blue);background:var(--soft)}
+.opts input{width:18px;height:18px;accent-color:var(--blue);margin:0}
+.opts.col{flex-direction:column;align-items:stretch}
+.sub{margin-top:12px}
+.sub > .lbl{display:block;font-size:14px;color:var(--muted);margin-bottom:4px}
+.inline{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.inline > span{font-size:14.5px;color:var(--muted)}
+.inline input{flex:1 1 220px}
+.grid .head,.grid .row{display:grid;gap:8px;align-items:center}
+.grid.single .head{display:none}
+.q,section.card{scroll-margin-top:120px}
+.grid .head{font-size:13px;color:var(--muted);font-weight:600;padding:0 0 4px}
+.grid .row{margin-bottom:8px}
+.grid .idx{font-size:14px;color:var(--muted);text-align:center}
+.addrow{margin-top:4px;background:none;border:1px dashed #9fb2cc;color:var(--blue);border-radius:8px;padding:8px 14px;font:inherit;font-size:14.5px;cursor:pointer;min-height:44px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.ktable{display:grid;grid-template-columns:minmax(120px,190px) 1fr;gap:8px 12px;align-items:center}
+.ktable > span{font-size:14.5px;color:var(--muted)}
+.chkrow{display:grid;grid-template-columns:28px minmax(110px,160px) 1fr;gap:8px;align-items:center;margin-bottom:8px}
+.chkrow input[type=checkbox]{width:18px;height:18px;accent-color:var(--blue)}
+.upload{border:1px dashed #9fb2cc;border-radius:10px;padding:14px;background:#fafcff}
+.upload input[type=file]{font:inherit;font-size:14.5px;max-width:100%}
+.files{font-size:14px;color:var(--muted);margin-top:6px}
+.cond[hidden]{display:none}
+.actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+button.primary{background:var(--blue);color:#fff;border:0;border-radius:10px;padding:13px 26px;font:inherit;font-weight:600;cursor:pointer;min-height:48px}
+button.primary:hover{background:var(--blue-hover)}
+button.ghost{background:none;border:1px solid var(--line);color:var(--muted);border-radius:10px;padding:12px 18px;font:inherit;cursor:pointer;min-height:48px}
+.saved{font-size:13px;color:var(--ok)}
+.done-box{display:none}
+.done-box.show{display:block}
+footer{color:var(--muted);font-size:13px;text-align:center;padding:24px 16px 48px}
+@media (max-width:640px){
+  .hero h1{font-size:22px}
+  .card{padding:18px}
+  .q.missing{margin:0 -18px;padding:20px 18px}
+  header.top .tag{display:none}
+  .grid .head{display:none}
+  .grid .row{grid-template-columns:1fr !important;background:#f8fafd;border:1px solid var(--line);border-radius:10px;padding:10px}
+  .grid .idx{text-align:left;font-weight:600}
+  .grid.single .row{grid-template-columns:24px 1fr !important;background:none;border:0;padding:0}
+  .grid.single .idx{text-align:center;font-weight:400}
+  .ktable{grid-template-columns:1fr}
+  .ktable > span{margin-top:6px}
+  .chkrow{grid-template-columns:28px 1fr}
+  .chkrow input:not([type=checkbox]){grid-column:1 / -1}
+}
+@media print{
+  .progress,.actions,.addrow{display:none}
+  body{background:#fff}
+  .card{border:0;padding:0}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAyCAYAAAAZUZThAAAAtGVYSWZJSSoACAAAAAYAEgEDAAEAAAABAAAAGgEFAAEAAABWAAAAGwEFAAEAAABeAAAAKAEDAAEAAAACAAAAEwIDAAEAAAABAAAAaYcEAAEAAABmAAAAAAAAAGAAAAABAAAAYAAAAAEAAAAGAACQBwAEAAAAMDIxMAGRBwAEAAAAAQIDAACgBwAEAAAAMDEwMAGgAwABAAAA//8AAAKgBAABAAAAyAAAAAOgBAABAAAAMgAAAAAAAADkscDdAAAACXBIWXMAAA7EAAAOxAGVKw4bAAAFUWlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSfvu78nIGlkPSdXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQnPz4KPHg6eG1wbWV0YSB4bWxuczp4PSdhZG9iZTpuczptZXRhLyc+CjxyZGY6UkRGIHhtbG5zOnJkZj0naHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyc+CgogPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9JycKICB4bWxuczpBdHRyaWI9J2h0dHA6Ly9ucy5hdHRyaWJ1dGlvbi5jb20vYWRzLzEuMC8nPgogIDxBdHRyaWI6QWRzPgogICA8cmRmOlNlcT4KICAgIDxyZGY6bGkgcmRmOnBhcnNlVHlwZT0nUmVzb3VyY2UnPgogICAgIDxBdHRyaWI6Q3JlYXRlZD4yMDI2LTAyLTE0PC9BdHRyaWI6Q3JlYXRlZD4KICAgICA8QXR0cmliOkRhdGE+eyZxdW90O2RvYyZxdW90OzomcXVvdDtEQUhCUVhpWm1oVSZxdW90OywmcXVvdDt1c2VyJnF1b3Q7OiZxdW90O1VBRTI0am9jYTNzJnF1b3Q7LCZxdW90O2JyYW5kJnF1b3Q7OiZxdW90O+awtOaZtuiAgeW4iOWboumYnyZxdW90O308L0F0dHJpYjpEYXRhPgogICAgIDxBdHRyaWI6RXh0SWQ+YTI1ZmM3ZDAtMDk2My00NzE3LTk5YjYtODJlMGM3ZWI1ZGFiPC9BdHRyaWI6RXh0SWQ+CiAgICAgPEF0dHJpYjpGYklkPjUyNTI2NTkxNDE3OTU4MDwvQXR0cmliOkZiSWQ+CiAgICAgPEF0dHJpYjpUb3VjaFR5cGU+MjwvQXR0cmliOlRvdWNoVHlwZT4KICAgIDwvcmRmOmxpPgogICA8L3JkZjpTZXE+CiAgPC9BdHRyaWI6QWRzPgogPC9yZGY6RGVzY3JpcHRpb24+CgogPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9JycKICB4bWxuczpkYz0naHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8nPgogIDxkYzp0aXRsZT4KICAgPHJkZjpBbHQ+CiAgICA8cmRmOmxpIHhtbDpsYW5nPSd4LWRlZmF1bHQnPkJpelBpbG90IC0gMTwvcmRmOmxpPgogICA8L3JkZjpBbHQ+CiAgPC9kYzp0aXRsZT4KIDwvcmRmOkRlc2NyaXB0aW9uPgoKIDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PScnCiAgeG1sbnM6cGRmPSdodHRwOi8vbnMuYWRvYmUuY29tL3BkZi8xLjMvJz4KICA8cGRmOkF1dGhvcj5DcnlzdGFs5rC05pm26ICB5biIPC9wZGY6QXV0aG9yPgogPC9yZGY6RGVzY3JpcHRpb24+CgogPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9JycKICB4bWxuczp4bXA9J2h0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8nPgogIDx4bXA6Q3JlYXRvclRvb2w+Q2FudmEgZG9jPURBSEJRWGlabWhVIHVzZXI9VUFFMjRqb2NhM3MgYnJhbmQ95rC05pm26ICB5biI5Zui6ZifPC94bXA6Q3JlYXRvclRvb2w+CiA8L3JkZjpEZXNjcmlwdGlvbj4KPC9yZGY6UkRGPgo8L3g6eG1wbWV0YT4KPD94cGFja2V0IGVuZD0ncic/PnoGulUAABnESURBVHic7V0JmFxVlb5ZiJAAkWHAgELQERyXz0HCMvCpiMgijKPsoEMAYYAZQEZmxg8dxwgqKIgDjmZIiETCJk32dFfX0ksSwr6JhC0gyA4SAgkk3V31Xp05595zXp13672uqu7qTpip+33ne1Xv3neXd89/z3KXZ0yzwgwYa3phvAEYV/czlNbRGPwzps6Hxtj0bficK6/O51qhFUY9WGYdV8Wk9H81TDC5VyeZWe/uYm7aNNXctG6que6dD5gHYKJpWz2hOivOKwkoAoi2lPje57Y2mTXva167WqEVhhOEYXVof3eKWRZMN/lwFlK3yYWPmRw8bzrDdSYTbjAd4XqTCd7E+38yufIjJh/kTDb8tVnSf6xZCDvG8mpLAJ0EklQFmGwWbjrQ5ILvY37LTCFYY3IDe0fxrdAKmy0QAwrzzkMJsWzj8SYbtCOz/9l0A5iVSCuY6PcdTCu9OIkvQIhM/grmscR0lo4182CSzRtYlcqUtzfdfX9llvQdZjpKl2M5yzH9C6YTSphH2dyJeWSD582cN7aLnmuFVhj1oKXG0pcnmmUD/4iS4Ulk8DLaAmCJGD6P/7MoNfLhEyg97jGdKCly4SK8hwAIe1CKPGgK4bP4f6PpwfTLkXr4+S58Ng/4XHCelRIU2jbuj9LmYXMXxt+F8T22DDAZ/N0Bffb5ztIvXNoG7J9WaIWmBTeaO9WlfdNByMD3RgxN10JYxntPINPPMR0DJyFz724Ww3bmhASGbUPbpBfejxLgk/jMt1BNWoDPvWjz6WGAkXTJwR9QIp1gmX7eOztbEGRQ0nRQWeUAARKidAksQArBaTZvMto3YwB8T0Kbsx7DDdyGsWntUPE+vafbPbQgKhVdO4rfReYvIRE4wHSHJWTuLrNg4GRz9gNbpeYh6lJamPsWAqZ4HuZ1nwVJARn/HlLDUALdATtE6XJwm43PQBEBFiIROIv4/9NRXTdTAM97J0y0ueozlJBU5/+/jF9PEIZbhCN+JlxgVagcAmS51fsfMh39f+cS8guEyNU7puK61S+X7wvgfDctSYuO4OtWBcsjONo27BTdz8McK2U6sHy65hBEBNJM+DDmNT5Wj4RADNwANTQiSrpyufw+/P1hpCkjyVRct0baUpdUkzR43QHpI0jbpaSj9n0M6aNIeyqa2Oy2brlBRpIFqN4UwpVW7ckSU4ahaS9dZma9PDFKl+aerb8sZ98IIHthisnCblE8ecao/E4YcPUozbNesrvpd/gzm2aE7A9mrvFp0kAx1bkIkBfw2o/0LhLKOlQjXdwWIUkEMAn3pQ1/gTQPaT23Yy3SldR+jh/L1xvAhY2cjqiEdKiUM5rtGv0wYwbbG6jedIUrrMTIo0pTCN82i/qPs3H0sprNlGDGVLl483CtM8Sh30qwbHitvd8ZXGQepHoFp9j/g9QFO2wbpKORvor094PQUdTJSPsifRBpgpdPTKoohtkPKWSmQZyUA/7do9I2TaJQ/bCMY/H6lUHaQnGHc90+oIGR0I5xfP0Z17vEDZF2nMvxE/h6sxcv4TCd32gE8KTpaBTpXtwMfBmFIMsGMzJi+JpZWNzfxo3kDLZ2CORKsx0oInBcE6VbACTZVpslA5/k+qaOjNiRH0LaJAwMNQJ1PKf/I9JCpAuRduM8I+aCysh6Dj9a5PwFLG9jPtvrugzv1UTl3p7CoEmB6vIOEg4ncAXSp/x2qPzz/EyJ21Hk/7M5fit+nzd56eSdjipAmvFOh1KqY7RC6XI7f0HGcFf4Jhro+9r7I+kpEtuEQh4lxUpbfp+zfcJf2vs0L9IG29rfbZsONIvfSNSTXXYVgIBTB4RhyoNQFV74Skx2OdI2kjdURt6TFUCIaQaYgV8G1subDJC2BAat1ZayeubnZC+pdki+8zlNP4Ovj///F8dvxdctQoJw3fdB+iLSF5A+N7Jli5qysO9wky/TyF1CxgzN0tLX7P2RBAepdQ6cYxCcMxkc/Rak+fBXXL/JpjNcFYEF1KRlQoDaEqTMDBMj7nhhMvkvUmGxYihRsUh3f4LjQ5X2Mp1uuMEHiM+g/N9vTxkqal9J1Y3AIAa8AP149V7kPZE9dSDHi8TcrABR72FXrMM6Vf76Zkpsv1SX4VIc8brCh+1kXK91o/7Y3h9pySHSI4cG+Uplc+QZDDmYhNRjAVMIB0ym+Fl7f3DbY0gqVgKTyH9ROc7n/Md5nfUDvN6CdD3SSdBk4xxqAGSQEKrfuh3/mdAOGol/jXQr0lVIe0vZUBkQhg0QUHNGAI3NHUEFqP/M5Zb4OoIAEUbLw79Zo5iWjfSEd5tZD2xVcx5jOEG7hPMROEStujpKcw2qBPnynXYOptfOw3RGcalZpwJEq03kkfkNMzX9JptjtXrpSYz2gGYCzTxe+b5h3Iir2SetCqUBBHsNZiHNxbgb+f961W7QvzHNm1CxrdLaoIExLIDwOxifxrzczpoDMVQk33IuVwBPbX0/pxkPTTPepcI3rt0eR+c1lgnJMM+UjrL3R2oJhwZHAWbGJEcu/G+bRuZLKOSKByCAB+wyk24L4kHrB+kACbmDn8PL1jot/6YO2B/pUX4mVM9S2KgZa0TezSDtSQCI1OurHK8lAs1Z/NYHiXr2Ak5XF2PytSGAgFLj1L0JSNsRQyNNguoBp6pP+b7YQWR7yCAm/TNCEkQYrKN4XrTkoycscK1GWHKQzRHO9iRHBRxSfuTZCmdGa7dy4fzB6lgHQP4EFSNaT6oJI3xOdX4keZgxpqlypiJdB04SzUGaTZ4epH9Rac5n789sTlMvzWaGPETllQaQ4zh+K6h25Ra8Z4S5blBpyAb5HTgpJO0gSfRZjm/YBvHe5+5I/wrOjnuK7YcNSH9GegjpenJfKweCP6svoN8FKcdlavWRJMkN3jsmzWAm0g46j6GFQtBjGY9GZ5rRpjAS0kOrbIVwjrUryJVrJwPDn9v7MzwDXF5WT3EaPlPC9ASQjWbxhk9E6auKqQsgiRKEr5OVEahVM2Kuv1Hp0+ZBCirNshSmqhVkTuLbKq9EgBBzcbxmUJm7OMt7RuqLQ1LE+GnzIOd4edUFEKgw9ESky8AZ/FF9E4LcJxX3SOkLlQ8B/wJWDQfLJ5Yf9/0QJb48kNn4IZMrv2mXb9BycllN22wJol25hdJ1kVplZ8jDX3CaZO+U3OsIstFK4K7AGsxJTgSoDyDito2kB1TE+K5ep0qHkK67kypnGtIAMwyNYv2crl2lma86ayCFxE2sSfI6V+XVCEAE7F/yGEcAcj9UGP9yvtcHyl2N4XSOrxsgqlyapFzF8aF407THjeedfC8bhe9yHgLgmXy/NMhAo9+nuKvfRvqg5on6gzBWe/Aty3QrrJfoNnuv0cV/M3h2PY30BGMBrmdwDPAykivtfTeTPjbRMRDZIsHZVsott5Lnt8a1fCgS5DkYRIJg/H9Ix3oMkeN0MlJOg2QJ0qnyXJLCVLWCjOZaXWsEIFLHY3RaVV+U38kSRKX5Jsc3JEF4bdpKjpNJVJ2vDrpfApX3haot7SnlpoVIghAP+P1cXxDG6kVVZyXr9ln4pxhD1hNqgokrRgAohPOiGXLH5D9RdYk3QOcbSR7YD6lonQmdwfPRZGH1zHAtL9aLSHvyROJUIvz9cbwegXStYpRYpylGFElTD0Bm8sTh40hPebQG6TGk53XHqisx10Eqr1oAsZ4icCO5MPWVnDamPpGNofJtFkDkvVyi6h+9Sn6W+uMevGbw+miCPSVlkzSbxvldgekewetdUJnErGTs+ug+jr+br/eC83btrHmi8ZCDrGXWHDJtOxzAb6w+CSLp2jbtbhb3H21+13+Uub305RjNx3uLS18yeZjv1ClWqzpKP+Y8xtj9I7QZyxIazz5ApXG0ezAbPmcB0h32m9yAXT7hgxTSAaLeqR1dIkrqTK/DrpG8oTEJQvrzBJ9olOWRdgwzi2ZeyedizkNG+jQj/RiOl3qJJDwYqvX/JNvmpzoOhggQTkNr2dZ6ZUp+aEHCR3QfgXOIrPHSST3me+3aGulplVarvpOl7TCEOZbkQIcoZIM/WBWrC9aaAjK6ZsjBgjDxstIxbiehZf4Qf5fxykSbnJBy+Ltg7xWtBMnApVE+OUR4LlyCcWvwuhqfeRzpEbRTjuS6jI3VqTNcxIsoMT9O01btXqTrECYKZYZde63ICyReIn9eYFCADNZBKo/vpDDHMkmn0qYB5OscPxlpCgPjanDzPTqdXGkU3kvVpZkAOd9LI3mRBI15lFS7aJGoDFBa0pM98deSNw8oiQAZKTfvtshwL1i9Pg8vmZW8D6NWIcKQGTgegdVnwUEMq/eg+3vRV/KOwUzwA87DrZgtwEl2f3kXrf3iveq0nL0nuA9FQwUckUsaDfoVvHGrwB63BP87XQeTIFB7qYmoA+TG/Qzn67uD65EgVTPHUJEIn4f4xKR2Iuyuy+TfaROF1mXKnreNEAeEbrcw4W84P2H8ZgIktqBSpb1I8lLt0e/itpTnZL6G1MZRliBzX5+Cuvx6tyEJVZc5UPsAhN5elhwDJ6OaE9i9InbLbPgMMu0tpiucj4C7HRn9dvu7C8VkD7ThvYWmc+AUzn+smeX0VUx3mgVoJ0oXyquTdy5mgqfNXGdI2/qIxCqUfhjN+HcFZ7o6xVUyGLoEkeAv0aBAM+07SmfxtWEJophjZ6QnvfLkehSnGe89U+9Sk7ICu+Qr4CDbZ1fOT2yG4QLkcI4nt65Wl3T5+3EaXx2WNp7n5S11uU7Sjr4EufHdXVCCVAAiq2XTChFGzKLK0Q0lu6ix147mq9F+mWrjahntMoMuo34BpluAdVpwlCPAZcOn7DITeUbK7oHvWYAst1LmvFi9oiJqGuk0ypL7lSbHaOQixiNv0/0JgBIJQ52X4fyHrGKpZ2/RDKGelYWO4/z2QDpAxI0qCyYjt6rHSOQQ2EvqoZizWQDZCZw089833dtRt0W1TQabI3SGqowuSTv6AJn56s4mg/aDZUh43h6q4EpJmotgtaqEalU4YEd6u48cwdHZt4eNk01PbrLP0QxFbW0VVagCtukWZO5ABncwQ7eVIGsSAdKFKtoKnvXvCs6K5RVVdchuXhLLu5fdLDKoDhCVjMIJKn1DAFHMEBst1XPkdYmtv9L5QOOLFUVVfAucpypSQ/jaLIAcwfG0XVe8TBogryJNSnknUpcDIP6+pa/ug7j7eBQBQl6jHEoOt77pNbPKid4qgAg4OtBe6Eabg0b5Xsugj5slfR+2cWIjJM1j6ElCCZHKpAAiEsSqXB5AojqUruRztYZig9RaaqKZsstjBmGe61WaugECFXDQ7HvVJCQ++zpePsZp0pZapAGEvEbkKn4J6VlwM9JUf3JZn4E0RfLVecMIACRFYr8EKftjoAKQ2KoEqPTVw1LP0QcIdZqcKJKDDaaj33k2NDML43fiyNmD4MhFalU1OOJ5MyhqqGuFIC5BIoCEPkB4Nj281UoQ2rfSUfpyUvlQH0DSJIgwg68TS+fdrRhrX6gDIKo+24Nbe5SU78mcNnGxHl/TvFjy7LbgDNmqk2ZALWRU95qtYpFdpT1nkQRLY2CoDBxfUPnpGf9V6v2NIkAqM9viNiWGcxukKtLAAWVp6TjTE/bZE0WsWkWHw8EeXlrOb91kNNhvRODdj9c7UULdhdelpr3/4za+ckBDRcXq8QDSkwAQ+yydxRs86Qx0VPPak48dhSEChP9Lh033mCVyV5Yri+pqAgTi8yazNIOp9L/SZVd3VU2AHJP0PPAy8jSmgeYDZBKrr1K3KnctpBvpp+myVRkLJO1oA8S9zK7wl5FLNhu6mW1iXmG6DjTqesuv27mMbqvWPBGzOfz8enE0u9faCKFldDLmH7Iz9T/10iUDJLJBYgBxdcn0fwLB1mddvNngRdO2LnHdGNQHEH8tlnXfKua/LIVpfq8YZlCAcBphgOm649WVdOxE/dxvD9Q/k17vcT/NAoh28/rLQiSv6brMhDpc49VBrtHuzNEFiDD3koETos1IBVgRxUdGMZzj5iWs5Hgs8lb5apWk70TDuZfXWjmmH3CnIKo1Vzp9KkCUDSJp83CKBYdb/XuzvTcyq3npjKtXPCaUDl+q0teSICI5PlWOr0SVjiVbZBrXlTp/fALpPR51r8WqJ8DIAORinZdK2y7vWLVN3Mx/CW75T9QmdT1a+gncHIp2jWsvmWyY2krlPwywyMO03zsPL1rGy5fXmSUQtyva0M7Ih39EcPzeLHprD3evrbojmInH5oIz3XE9bHRnUILcYW2WK2L5pgEkkwCQaGKydJ0FH1E+uDCWT6xpNd28ZNDuCO5YINLbJ/GVgEEjvb/0QTPPxaqcmhOFZbek5M4UxpIZ+kEZG95bANkrwVUu9fy2tEe1iQYAOW/LV2epHyaqvCntg14aKeNE/x0AJG/AauQNOZAsD2+PZrzzwffsPc14dE7W4mgSkQ3vtBW3cKYb4T2A9KQAJD4PEtqrVaGUikVhEeyGYHrb2kq5sN8sejf1sweQDhBQHfwaOPejpbKbhZYl5rH0qjPeAJ7h5nLqmUm/ymMqyZfK/yHSj1LoUnCu2TNUXv6xP1sUQKAiEaLl6QnvM0dAwetZZbdq+iGvzOi5Mq9kBiUN8Log5R28ye+MzgQgz90MvNcLlUnXIQAlGpn7j3eGr1WjHlWMWfEeyZyGDvq/VrGsBEFgxCRImKxiaS9Wp1KxxEiX8jPBBdGux2yY4To1uqOwZlATbtF/1RmygajWal5ZFi87ExuZxdf1oLACKsyxpQNE8qO9IKIKJYHED/7uQAp3QEVF1UtSZO2af3aAn7f8r0tKp70ix2C07KMnfNAChJg7F7iVnpGdIV4kXiJC5B9a7QMkY2faHUBWDqJi5eHUqpl0Akh7+DSW55aa0Id28vi/wACRJSt17EmH9HOxwjRSs9BaRfh3zlsvHpzmGaPSaXmOP8k+HF/jpcsnZkjcRKWAnVXt8s/FEsZK9GLV7P1qgBQhDvQzOH4Cv8+aB8epd/MZcNJZDzIy4Vrk/3Itq3dOgRY2TpX3rfsUr7vxnJGuB6i8pR9EG/jaUN5NJQiT0WYkCw67lPzlaI4jshWKB+GofrfpCFcjPYK/H0dV55Ion1oqVpqRLhIk60mQDAJiFuuf2dKPoi3BdF5wpYubLkFUkPT3IH3B6yy9CjV1yy3Ez5tqrPBKXt2qXaMiQVT+Z3J8vW7ecd51L7G/9DsQwHj5SDxtUY4mNr36yns/BeLAKHsgpCD9UmWbNBiYyUgidIX32FHaSZFFXCvHyHfCXPOAlQQlZNQyLxgsmrZ+tzdcVueSBFmRoGKl2SC+BBGAdATP2vhlxf2tzUH2CdVtWX/NE1egMtrQ1lnS9clbRNsv19cgsjFoMR8dDEDbUD/vd7rXUXuX3TIO8qK8zXYMdcxijqczgQfqLDtGlBd3uPaazWMGW8fpKF8aKb8yFCaACkAu4Xzf5LLf4rL/geNFpZzjlb+e3+0hg7wj2vvyDbIH1GDlB8qnA9zZwpHLPaXOku+hDL6kY5oIJLS6YBHSR/VzQwvCbNnSIe6jOMj4vcS0xe9EabrDm1h1cuuw6EM2tMlqMR9NKgAhL5ZIkIxSsVIBEpxa5ebtsV6sp8w1G3ayE44C2s7SrfyW6nLfgfOdb18PgTuKhjxZ/sHVqZ4Qup+QD+3JkGUV4+stP6VOUV6cH3ndJiekG9bhfuxinpxQdkyNbrR88E5YYZX3SKTTkc5GOhXc8aE7pz2Tlq9KS59jOJ7zOxPpRKQDgd2+zQuCsK7SpWYVLz8nsGQDO8GDDH0zb3YquY1RdoFj0SyFfWy8Boh283bUsEH8pSYEPLcW6zGUHAt4rwp5154xC2AXrmtzD5SoehXRttX/48f5j3zgd1lzTmKwgSglfdXSmYQ0sbVnwwyRIT4emXYJH8lTMj3IuO3BicjEsyxwMlZ1cgDJIUDai+6cqAggUAFIRtsgKV6srLJBXPqy/YIUgY++OJW1NtFGM7/vEG51Qw1WIrshGm7+wyk7rS7NqG+j76jettZZjpwyqSdCh8XEg+TZhA1TfpDvg9AXngrhg7yHHEf08B2TD1+xI7kDhwCkZNohDhCxQbLKSF81CEDIBulV6SsURvtN2otnx55thVbYbEHQTOut6DscK2Q0t+AAVq0GB8hKZvgsG+tJAJnBOxO7Ie7FyrL0oQ/30P2lxYu4Xi1wtMIWEoSJF2/cFW2KO/kcK/mAZjmmYi1iFauX5ywiL1aKm5ckB+W/WvakB99wk38WUKHJhCW3PyUcMEtakqMVttQgkuSqF7YxHaW5PEfijG750mwuDMziojsqKMlIzygjvcBHi/qfWsvBT5wXywKwxJ8+eMksLR3K9WiBoxW20ABQ+SxaduCbyLivs/Ee2k8yW5skfMh0BBeZTPFgm64LTk+WIOHlNp4+DtpROgyB9H2TDR91eVjXbplXAS8y2U3uQ54tydEKW3wAdeQOHRCXKf0PMnWfZXp33hVUpEvwrD3bKmcZ3Z2NJRN8dN5VJuhFWmvPyFrBM+O9+Nu6j4NHTefACarcLeILsa3QCnUEliSiGi0Z+LQ9jT0brrWjPp151cWLHbvF01UO2K5wk4qyzqubVw1bUIUoYYJue4TQvFcnuaISFkW2Qiu8J4KcViKBjPhscBIa1leb9tIzKBn67NxFNwNgOe/dsJutym6bbC7YgKDI2P0cmY1/a+ddKGhJ1Qqt8J4OkPCtdDLm8/17mqXlg+3RQGSs5+BsBMPZdjkJHbDQNbCPaX93SmyRIciRPiM7O94KrdBI+F8st7oK3rRdsQAAAABJRU5ErkJggg==" alt="BizPilot" width="160" height="40">
+    <div class="tag">AI 建站与托管服务<br>Website Build &amp; Care</div>
+  </div>
+</header>
+<div class="hero">
+  <div class="wrap">
+    <h1>网站设计开户问卷</h1>
+    <p class="en">Website Onboarding Questionnaire</p>
+  </div>
+</div>
+
+<div class="progress" aria-label="填写进度">
+  <div class="wrap">
+    <div class="bar"><span id="barFill"></span></div>
+    <div class="pmeta"><span id="pText">必填题完成 0 / 0</span><span id="saveText" class="saved"></span></div>
+    <nav class="chips" id="chips"></nav>
+  </div>
+</div>
+
+<main class="wrap">
+<form id="f" novalidate>
+<input type="hidden" name="_service" value="website-design">
+<input type="hidden" name="_form_version" value="2026-10-03">
+
+<div class="card intro">
+  <p style="margin:0">您好！这份问卷帮助我们了解您的业务，为您量身打造网站。</p>
+  <ul>
+    <li>大约需要 30 分钟，可以分几次填，填过的内容会自动保存在这台设备的浏览器里。</li>
+    <li>带 <span class="req">★</span> 的是必填题，其余可以先跳过，之后随时补。</li>
+    <li>不确定怎么答的，写「不确定」就好，我们会在下一步和您确认。</li>
+    <li>您填写的信息只用于制作您的网站，不会对外公开，除非您同意放在网站上。</li>
+  </ul>
+</div>
+
+<!-- ============ 第一部分 ============ -->
+<section class="card" id="s1" data-title="1 业务">
+  <h2>第一部分：您的业务<small>About Your Business</small></h2>
+
+  <div class="q" data-req data-all>
+    <div class="title">填写人信息<span class="req">★</span></div>
+    <p class="hint">我们用这里的邮箱和电话联系您，不会放到网站上。</p>
+    <div class="ktable">
+      <span>您的姓名</span><input type="text" name="c_name" data-key autocomplete="name" aria-label="您的姓名">
+      <span>联系邮箱</span><input type="email" name="c_email" data-key autocomplete="email" aria-label="联系邮箱">
+      <span>手机（选填）</span><input type="tel" name="c_phone" autocomplete="tel" aria-label="手机">
+    </div>
+    <span class="err">请填写姓名和有效的邮箱。</span>
+  </div>
+  <div class="hp" aria-hidden="true"><label>Website<input type="text" name="_hp" tabindex="-1" autocomplete="off"></label></div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">1.</span>公司名称<span class="req">★</span></div>
+    <div class="ktable">
+      <span>公司正式名称</span><input type="text" name="q1_legal_name" data-key aria-label="公司正式名称">
+      <span>网站上希望显示的名称（如果不同）</span><input type="text" name="q1_display_name" aria-label="网站上希望显示的名称">
+    </div>
+    <span class="err">请填写公司正式名称。</span>
+  </div>
+
+  <div class="q" data-req>
+    <label class="title" for="q2"><span class="num">2.</span>请用一两句话介绍您的业务，就像向朋友介绍那样<span class="req">★</span></label>
+    <p class="hint">例：「我在温哥华帮新移民家庭规划保险和退休储蓄。」</p>
+    <textarea id="q2" name="q2_intro" rows="3"></textarea>
+    <span class="err">请简单介绍一下您的业务。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">3.</span>您主要服务哪里的客户？（可多选）<span class="req">★</span></div>
+    <div class="opts">
+      <label><input type="checkbox" name="q3_area" value="只在本市">只在本市</label>
+      <label><input type="checkbox" name="q3_area" value="本省">本省</label>
+      <label><input type="checkbox" name="q3_area" value="全加拿大">全加拿大</label>
+      <label><input type="checkbox" name="q3_area" value="海外">海外</label>
+      <label><input type="checkbox" name="q3_area" value="主要线上服务">主要线上服务</label>
+    </div>
+    <div class="inline"><span>具体城市或地区：</span><input type="text" name="q3_cities" aria-label="具体城市或地区"></div>
+    <span class="err">请至少选一项。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">4.</span>客户怎么联系您？（勾选并填写）<span class="req">★</span></div>
+    <p class="hint">勾选后会出现填写框。</p>
+    <div class="chkrow"><input type="checkbox" name="q4_use" value="电话" aria-label="电话"><span>电话</span><input type="tel" name="q4_phone" aria-label="电话号码" data-show-if="q4_use=电话" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q4_use" value="邮箱" aria-label="邮箱"><span>邮箱</span><input type="email" name="q4_email" aria-label="邮箱地址" data-show-if="q4_use=邮箱" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q4_use" value="微信" aria-label="微信"><span>微信号</span><input type="text" name="q4_wechat" aria-label="微信号" data-show-if="q4_use=微信" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q4_use" value="WhatsApp" aria-label="WhatsApp"><span>WhatsApp</span><input type="tel" name="q4_whatsapp" aria-label="WhatsApp 号码" data-show-if="q4_use=WhatsApp" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q4_use" value="办公地址" aria-label="办公地址"><span>办公地址</span><input type="text" name="q4_address" aria-label="办公地址" data-show-if="q4_use=办公地址" hidden></div>
+    <div class="sub" data-show-if="q4_use=办公地址" hidden><span class="lbl">办公地址要不要在网站上公开？</span>
+      <div class="opts"><label><input type="radio" name="q4_address_public" value="要">要</label><label><input type="radio" name="q4_address_public" value="不要">不要</label></div>
+    </div>
+    <span class="err">请至少填写一种联系方式。</span>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">5.</span>营业时间或可预约的时间</div>
+    <div class="ktable">
+      <span>周一至周五</span><input type="text" name="q5_weekday" aria-label="周一至周五">
+      <span>周六</span><input type="text" name="q5_sat" aria-label="周六">
+      <span>周日</span><input type="text" name="q5_sun" aria-label="周日">
+      <span>其他说明</span><input type="text" name="q5_note" aria-label="其他说明">
+    </div>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">6.</span>从业年数与可以公开的成绩（可跳过）</div>
+    <div class="ktable">
+      <span>从业年数</span><input type="text" name="q6_years" aria-label="从业年数">
+      <span>服务过的客户或家庭数</span><input type="text" name="q6_clients" aria-label="服务过的客户或家庭数">
+      <span>获得的奖项或认证</span><input type="text" name="q6_awards" aria-label="获得的奖项或认证">
+      <span>其他想展示的成绩</span><input type="text" name="q6_other" aria-label="其他想展示的成绩">
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第二部分 ============ -->
+<section class="card" id="s2" data-title="2 牌照">
+  <h2>第二部分：牌照与合规<small>Licensing &amp; Compliance</small></h2>
+  <div class="note">很多专业行业对网站内容有规定。先了解清楚，能避免网站上线后再返工。</div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">7.</span>您的业务需要持有专业牌照吗？<span class="req">★</span></div>
+    <div class="opts">
+      <label><input type="radio" name="q7_licensed" value="需要">需要</label>
+      <label><input type="radio" name="q7_licensed" value="不需要">不需要（跳到第三部分）</label>
+    </div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="cond" id="licensedBlock" data-show-if="q7_licensed=需要" hidden>
+    <div class="q" data-req>
+      <div class="title"><span class="num">8.</span>牌照信息（有多个牌照请逐行填写）<span class="req">★</span></div>
+      <p class="hint">例：保险牌照（BC 省）、基金牌照、移民顾问 RCIC、房地产牌照</p>
+      <div class="grid" data-name="q8_license" data-rows="3" data-cols="牌照类型|发牌省份或机构|牌照编号"></div>
+      <span class="err">请至少填写一个牌照。</span>
+    </div>
+
+    <div class="q" data-req>
+      <div class="title"><span class="num">9.</span>您挂靠或隶属于哪家机构？<span class="req">★</span></div>
+      <p class="hint">例：某基金交易商、某保险总代理（MGA）</p>
+      <div class="grid" data-name="q9_firm" data-rows="2" data-cols="机构名称|机构类型"></div>
+      <span class="err">请填写所属机构。</span>
+    </div>
+
+    <div class="q" data-req>
+      <div class="title"><span class="num">10.</span>除了您本人确认之外，网站内容上线前，还需要您<strong>所属机构的合规部门</strong>批准吗？<span class="req">★</span></div>
+      <div class="note">您本人的确认每个客户都有，我们会在门户里请您逐页批准。这一题问的是另一道关：很多持牌行业规定，顾问的网站、广告和社交媒体内容，要先经过所属公司（例如基金交易商、保险总代理 MGA）的合规部门批准才能发布。监管机构通常不直接审批单个网站，而是要求您的机构负责审批并存档。</div>
+      <div class="opts col">
+        <label><input type="radio" name="q10_compliance" value="需要">需要，我的机构合规部门要先批准</label>
+        <label><input type="radio" name="q10_compliance" value="不需要">不需要</label>
+        <label><input type="radio" name="q10_compliance" value="不确定">不确定，我去问一下</label>
+      </div>
+      <div class="cond sub" id="complianceBlock" data-show-if="q10_compliance=需要" hidden>
+        <span class="lbl">请填写合规部门的信息：</span>
+        <div class="ktable">
+          <span>联系人姓名</span><input type="text" name="q10_contact_name" aria-label="合规部门联系人姓名">
+          <span>联系邮箱</span><input type="email" name="q10_contact_email" aria-label="合规部门联系邮箱">
+          <span>一般需要几个工作日</span><input type="text" name="q10_days" aria-label="一般需要几个工作日">
+          <span>提交方式（表格、邮件或专用系统）</span><input type="text" name="q10_method" aria-label="提交方式">
+        </div>
+      </div>
+      <span class="err">请选择一项。</span>
+    </div>
+
+    <div class="q" data-req>
+      <div class="title"><span class="num">11.</span>您的机构有没有规定必须使用他们指定的建站平台？<span class="req">★</span></div>
+      <p class="hint">如果有，我们会先和您商量可行的做法。</p>
+      <div class="opts col">
+        <label><input type="radio" name="q11_platform" value="有">有</label>
+        <label><input type="radio" name="q11_platform" value="没有">没有</label>
+        <label><input type="radio" name="q11_platform" value="不确定">不确定</label>
+      </div>
+      <div class="inline" data-show-if="q11_platform=有" hidden><span>平台名称：</span><input type="text" name="q11_platform_name" aria-label="指定平台名称"></div>
+      <span class="err">请选择一项。</span>
+    </div>
+
+    <div class="q">
+      <label class="title" for="q12"><span class="num">12.</span>网站上必须放的声明或披露文字</label>
+      <p class="hint">可以直接粘贴在这里，或上传机构给您的文件。</p>
+      <textarea id="q12" name="q12_disclosure" rows="4"></textarea>
+      <div class="upload sub"><input type="file" name="q12_files" multiple aria-label="上传披露文件"><div class="files"></div></div>
+    </div>
+
+    <div class="q">
+      <div class="title"><span class="num">13.</span>是否允许在网站上展示客户评价或案例？</div>
+      <div class="opts">
+        <label><input type="radio" name="q13_testimonials" value="允许">允许</label>
+        <label><input type="radio" name="q13_testimonials" value="不允许">不允许</label>
+        <label><input type="radio" name="q13_testimonials" value="不确定">不确定</label>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第三部分 ============ -->
+<section class="card" id="s3" data-title="3 服务">
+  <h2>第三部分：您的服务和客户<small>Services &amp; Clients</small></h2>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">14.</span>您提供哪些服务？<span class="req">★</span></div>
+    <p class="hint">先把最重要的 3 到 5 项填在第一张表，按重要程度排序，这些会在网站上重点介绍。其他服务填在第二张表，会以清单形式出现在网站上，客户一样看得到。</p>
+    <div class="sub"><span class="lbl">主打服务（按重要程度排序，最多 5 项）</span>
+      <div class="grid" data-name="q14_main" data-rows="5" data-numbered data-cols="服务名称|适合什么样的客户（一句话）"></div>
+    </div>
+    <div class="sub"><span class="lbl">其他服务（不限数量，写名称就好）</span>
+      <div class="grid" data-name="q14_other" data-rows="6" data-numbered data-add data-cols="服务名称"></div>
+    </div>
+    <span class="err">请至少填写一项主打服务。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">15.</span>您最理想的客户是什么样的人？（可多选）<span class="req">★</span></div>
+    <div class="sub"><span class="lbl">年龄段</span>
+      <div class="opts"><label><input type="checkbox" name="q15_age" value="25岁以下">25 岁以下</label><label><input type="checkbox" name="q15_age" value="25至40岁">25 至 40 岁</label><label><input type="checkbox" name="q15_age" value="40至60岁">40 至 60 岁</label><label><input type="checkbox" name="q15_age" value="60岁以上">60 岁以上</label></div>
+    </div>
+    <div class="sub"><span class="lbl">家庭状况</span>
+      <div class="opts"><label><input type="checkbox" name="q15_family" value="单身">单身</label><label><input type="checkbox" name="q15_family" value="有孩子的家庭">有孩子的家庭</label><label><input type="checkbox" name="q15_family" value="退休人士">退休人士</label><label><input type="checkbox" name="q15_family" value="企业主">企业主</label></div>
+    </div>
+    <div class="sub"><span class="lbl">语言</span>
+      <div class="opts"><label><input type="checkbox" name="q15_lang" value="中文">中文</label><label><input type="checkbox" name="q15_lang" value="英文">英文</label><label><input type="checkbox" name="q15_lang" value="其他">其他</label></div>
+      <div class="inline" data-show-if="q15_lang=其他" hidden><span>其他语言：</span><input type="text" name="q15_lang_other" aria-label="其他语言"></div>
+    </div>
+    <div class="inline"><span>补充说明：</span><input type="text" name="q15_note" aria-label="补充说明"></div>
+    <span class="err">请至少选一项。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">16.</span>客户最常问您的 5 到 10 个问题是什么？请尽量用客户自己的原话<span class="req">★</span></div>
+    <div class="note">这一题非常重要。现在很多人用 ChatGPT、Google 的 AI 搜索找服务，AI 会引用能直接回答问题的网站。您写下的这些问题，会变成网站上最容易被找到的内容。</div>
+    <div class="grid" data-name="q16_faq" data-rows="10" data-numbered data-cols="客户常问的问题"></div>
+    <span class="err">请至少写一个客户常问的问题。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">17.</span>和同行相比，客户为什么选择您？（请写 1 到 3 点）<span class="req">★</span></div>
+    <p class="hint">例：「我会说国语和粤语，晚上和周末也可以约。」</p>
+    <div class="grid" data-name="q17_why" data-rows="3" data-numbered data-cols="理由"></div>
+    <span class="err">请至少写一点。</span>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">18.</span>价格要不要在网站上公开？</div>
+    <div class="opts col">
+      <label><input type="radio" name="q18_price" value="公开">公开完整价格</label>
+      <label><input type="radio" name="q18_price" value="只写起价">只写「起价」</label>
+      <label><input type="radio" name="q18_price" value="不公开">不公开，请客户咨询</label>
+    </div>
+    <div class="inline" data-show-if="q18_price=只写起价" hidden><span>起价：</span><input type="text" name="q18_from" aria-label="起价"></div>
+    <div class="sub" data-show-if="q18_price=公开" hidden><span class="lbl">请填写价格，或在下面上传价格表</span><div class="grid" data-name="q18_table" data-rows="3" data-cols="服务|价格"></div></div>
+    <div class="upload sub" data-show-if="q18_price=公开" hidden><input type="file" name="q18_files" multiple aria-label="上传价格表"><div class="files"></div></div>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">19.</span>您最满意的 1 到 3 个服务故事（不写客户姓名，可跳过）</div>
+    <div class="grid" data-name="q19_story" data-rows="3" data-numbered data-cols="客户当时的情况|您怎么帮他|最后的结果"></div>
+  </div>
+</section>
+
+<!-- ============ 第四部分 ============ -->
+<section class="card" id="s4" data-title="4 目标">
+  <h2>第四部分：网站目标<small>Website Goals</small></h2>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">20.</span>访客看完网站后，您最希望他做哪一件事？（单选）<span class="req">★</span></div>
+    <div class="opts">
+      <label><input type="radio" name="q20_action" value="在线预约">在线预约</label>
+      <label><input type="radio" name="q20_action" value="打电话">打电话</label>
+      <label><input type="radio" name="q20_action" value="填写咨询表">填写咨询表</label>
+      <label><input type="radio" name="q20_action" value="加微信">加微信</label>
+      <label><input type="radio" name="q20_action" value="下载资料">下载资料</label>
+    </div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">21.</span>上线时间<span class="req">★</span></div>
+    <div class="ktable">
+      <span>希望上线的日期</span><input type="date" name="q21_date" aria-label="希望上线的日期">
+      <span>有没有必须赶上的日子？是什么事？</span><input type="text" name="q21_reason" aria-label="必须赶上的日子">
+    </div>
+    <span class="err">请填写希望上线的日期。</span>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">22.</span>一年后，您觉得网站做到什么程度就算成功？（可多选，可跳过）</div>
+    <div class="opts col">
+      <label><input type="checkbox" name="q22_success" value="每月有新的询问">每月有新的询问</label>
+      <label><input type="checkbox" name="q22_success" value="别人搜索得到我">别人搜索得到我</label>
+      <label><input type="checkbox" name="q22_success" value="看起来专业，方便发给客户">看起来专业，方便发给客户</label>
+    </div>
+    <div class="inline" data-show-if="q22_success=每月有新的询问" hidden><span>每月大约几个询问：</span><input type="text" name="q22_leads" aria-label="每月询问数"></div>
+    <div class="inline"><span>其他：</span><input type="text" name="q22_other" aria-label="其他成功标准"></div>
+  </div>
+</section>
+
+<!-- ============ 第五部分 ============ -->
+<section class="card" id="s5" data-title="5 风格">
+  <h2>第五部分：风格与感觉<small>Look &amp; Feel</small></h2>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">23.</span>网站语言<span class="req">★</span></div>
+    <div class="opts">
+      <label><input type="radio" name="q23_lang" value="中文">中文</label>
+      <label><input type="radio" name="q23_lang" value="英文">英文</label>
+      <label><input type="radio" name="q23_lang" value="中英双语">中英双语</label>
+    </div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">24.</span>您已经有 logo 和品牌颜色吗？<span class="req">★</span></div>
+    <div class="opts col">
+      <label><input type="radio" name="q24_brand" value="有">有（请在第六部分上传 logo）</label>
+      <label><input type="radio" name="q24_brand" value="没有">没有，请帮我设计</label>
+    </div>
+    <div class="inline" data-show-if="q24_brand=有" hidden><span>品牌颜色（选填，例如深蓝和金色）：</span><input type="text" name="q24_colors" aria-label="品牌颜色"></div>
+    <div class="sub" data-show-if="q24_brand=没有" hidden><span class="lbl">请选 3 个最能形容您的词，我们会据此设计配色和 logo 风格：</span>
+      <div class="opts" id="q24words">
+        <label><input type="checkbox" name="q24_words" value="专业">专业</label><label><input type="checkbox" name="q24_words" value="温暖">温暖</label><label><input type="checkbox" name="q24_words" value="稳重">稳重</label><label><input type="checkbox" name="q24_words" value="现代">现代</label><label><input type="checkbox" name="q24_words" value="亲切">亲切</label><label><input type="checkbox" name="q24_words" value="高端">高端</label><label><input type="checkbox" name="q24_words" value="活泼">活泼</label><label><input type="checkbox" name="q24_words" value="简洁">简洁</label>
+      </div>
+    </div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">25.</span>请分享 2 到 3 个您喜欢的网站<span class="req">★</span></div>
+    <p class="hint">不一定要同行的网站，喜欢它的颜色、排版或感觉都可以。</p>
+    <div class="grid" data-name="q25_ref" data-rows="3" data-numbered data-types="url|text" data-cols="网站地址|喜欢它的哪一点"></div>
+    <span class="err">请至少分享一个网站。</span>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">26.</span>有没有不喜欢的颜色或风格？（可跳过）</div>
+    <div class="grid" data-name="q26_dislike" data-rows="2" data-numbered data-cols="不喜欢的颜色、风格或网站|原因"></div>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">27.</span>您希望网站说话的语气是？（单选）</div>
+    <div class="opts col">
+      <label><input type="radio" name="q27_tone" value="专家">像专家，正式可信</label>
+      <label><input type="radio" name="q27_tone" value="朋友">像朋友，亲切好懂</label>
+      <label><input type="radio" name="q27_tone" value="之间">介于两者之间</label>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 第六部分 ============ -->
+<section class="card" id="s6" data-title="6 素材">
+  <h2>第六部分：上传素材<small>Upload Materials</small></h2>
+  <div class="note">现在没有的可以先跳过，之后随时补传。上传的文件不会自动保存，请在提交前选好。</div>
+
+  <div class="q" data-show-if="q24_brand=有" hidden>
+    <div class="title"><span class="num">28.</span>Logo 原文件</div>
+    <p class="hint">最好是清晰的原图（PNG、SVG、AI 或 PDF）。</p>
+    <div class="upload"><input type="file" name="q28_logo" accept="image/*,.pdf,.ai,.eps,.svg" aria-label="上传 logo"><div class="files"></div></div>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">29.</span>您本人的职业正装照，半身或全身均可，1 到 3 张<span class="req">★</span></div>
+    <p class="hint">建议浅色或简洁背景，光线充足，面带微笑。还没有合适的照片也没关系，我们会先用简洁的版面代替，不会使用图库里的陌生人照片。</p>
+    <div class="upload"><input type="file" name="q29_photos" accept="image/*" multiple aria-label="上传职业照"><div class="files"></div></div>
+    <div class="opts sub"><label><input type="checkbox" name="q29_later" value="稍后补传">现在没有，稍后补传</label></div>
+    <span class="err">请上传照片，或勾选「稍后补传」。</span>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">30.</span>办公室、团队、证书、媒体报道的照片或截图（可跳过）</div>
+    <div class="upload"><input type="file" name="q30_files" accept="image/*,.pdf" multiple aria-label="上传办公室、团队、证书照片"><div class="files"></div></div>
+    <div class="sub"><div class="grid" data-name="q30_desc" data-rows="3" data-cols="文件|简单说明（例：2025 年获奖证书）"></div></div>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">31.</span>现有的宣传资料、名片、PPT（可跳过，我们可以从中提取文字）</div>
+    <div class="upload"><input type="file" name="q31_files" multiple aria-label="上传宣传资料"><div class="files"></div></div>
+  </div>
+</section>
+
+<!-- ============ 第七部分 ============ -->
+<section class="card" id="s7" data-title="7 账号">
+  <h2>第七部分：账号与技术<small>Accounts &amp; Technical</small></h2>
+  <div class="note">看不懂的题，选「不确定」就好，我们会一步一步带您操作。请不要在这里填写任何密码。</div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">32.</span>您已经有网站域名（网址）了吗？<span class="req">★</span></div>
+    <div class="opts col">
+      <label><input type="radio" name="q32_domain" value="有">有</label>
+      <label><input type="radio" name="q32_domain" value="还没有">还没有，请帮我注册</label>
+    </div>
+    <div class="inline" data-show-if="q32_domain=有" hidden><span>现有网址：</span><input type="text" name="q32_domain_name" placeholder="例：yourname.com" aria-label="现有网址"></div>
+    <div class="inline" data-show-if="q32_domain=还没有" hidden><span>希望的网址（可写 2 到 3 个备选）：</span><input type="text" name="q32_wanted" placeholder="例：yourname.com、yourname.ca" aria-label="希望的网址"></div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="q" data-req data-show-if="q32_domain=有" hidden>
+    <div class="title"><span class="num">33.</span>域名是在哪里买的？您能登录那个账户吗？<span class="req">★</span></div>
+    <div class="sub"><span class="lbl">在哪里买的</span>
+      <div class="opts"><label><input type="radio" name="q33_registrar" value="GoDaddy">GoDaddy</label><label><input type="radio" name="q33_registrar" value="Namecheap">Namecheap</label><label><input type="radio" name="q33_registrar" value="Google/Squarespace">Google / Squarespace</label><label><input type="radio" name="q33_registrar" value="其他">其他</label><label><input type="radio" name="q33_registrar" value="不确定">不确定</label></div>
+      <div class="inline" data-show-if="q33_registrar=其他" hidden><span>其他：</span><input type="text" name="q33_registrar_other" aria-label="其他域名商"></div>
+    </div>
+    <div class="sub"><span class="lbl">能不能登录</span>
+      <div class="opts"><label><input type="radio" name="q33_login" value="能登录">能登录</label><label><input type="radio" name="q33_login" value="忘记密码">忘记密码</label><label><input type="radio" name="q33_login" value="不确定">不确定</label></div>
+    </div>
+    <div class="inline"><span>登录用的邮箱：</span><input type="email" name="q33_login_email" aria-label="登录用的邮箱"></div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">34.</span>公司邮箱目前用的是哪家？<span class="req">★</span></div>
+    <div class="opts">
+      <label><input type="radio" name="q34_email" value="Google Workspace">Google Workspace</label>
+      <label><input type="radio" name="q34_email" value="Microsoft 365">Microsoft 365</label>
+      <label><input type="radio" name="q34_email" value="域名商的邮箱">域名商的邮箱</label>
+      <label><input type="radio" name="q34_email" value="还没有开通">还没有开通</label>
+      <label><input type="radio" name="q34_email" value="不确定">不确定</label>
+    </div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">35.</span>您现在有网站吗？（可跳过）</div>
+    <p class="hint">旧网站的网址会设置跳转，不会丢失原有的搜索排名。</p>
+    <div class="inline" style="margin-top:0"><span>旧网站网址：</span><input type="url" name="q35_old_site" placeholder="https://" aria-label="旧网站网址"></div>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">36.</span>您在用的社交账号或商家资料（可跳过）</div>
+    <p class="hint">勾选后会出现填写框。</p>
+    <div class="chkrow"><input type="checkbox" name="q36_use" value="Google商家资料" aria-label="Google 商家资料"><span>Google 商家资料</span><input type="text" name="q36_google" aria-label="Google 商家资料链接" data-show-if="q36_use=Google商家资料" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q36_use" value="小红书" aria-label="小红书"><span>小红书</span><input type="text" name="q36_xhs" aria-label="小红书链接或账号" data-show-if="q36_use=小红书" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q36_use" value="微信公众号" aria-label="微信公众号"><span>微信公众号</span><input type="text" name="q36_wechat_oa" aria-label="微信公众号名称" data-show-if="q36_use=微信公众号" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q36_use" value="LinkedIn" aria-label="LinkedIn"><span>LinkedIn</span><input type="text" name="q36_linkedin" aria-label="LinkedIn 链接" data-show-if="q36_use=LinkedIn" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q36_use" value="Facebook" aria-label="Facebook"><span>Facebook</span><input type="text" name="q36_facebook" aria-label="Facebook 链接" data-show-if="q36_use=Facebook" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q36_use" value="Instagram" aria-label="Instagram"><span>Instagram</span><input type="text" name="q36_instagram" aria-label="Instagram 账号" data-show-if="q36_use=Instagram" hidden></div>
+    <div class="chkrow"><input type="checkbox" name="q36_use" value="其他" aria-label="其他平台"><span>其他</span><input type="text" name="q36_other" placeholder="平台名称与链接" aria-label="其他平台与链接" data-show-if="q36_use=其他" hidden></div>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">37.</span>您在用的预约工具或客户管理系统（可跳过）</div>
+    <div class="grid" data-name="q37_tools" data-rows="2" data-cols="工具名称|用来做什么"></div>
+  </div>
+</section>
+
+<!-- ============ 第八部分 ============ -->
+<section class="card" id="s8" data-title="8 维护">
+  <h2>第八部分：上线后的维护<small>After Launch</small></h2>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">38.</span>以后网站内容由谁来审批？<span class="req">★</span></div>
+    <div class="opts col">
+      <label><input type="radio" name="q38_approver" value="我本人">我本人</label>
+      <label><input type="radio" name="q38_approver" value="助理">我的助理（请在下面填写）</label>
+    </div>
+    <div class="cond sub" id="assistantBlock" data-show-if="q38_approver=助理" hidden>
+      <div class="ktable">
+        <span>姓名</span><input type="text" name="q38_name" aria-label="助理姓名">
+        <span>邮箱</span><input type="email" name="q38_email" aria-label="助理邮箱">
+        <span>电话</span><input type="tel" name="q38_phone" aria-label="助理电话">
+      </div>
+    </div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="q" data-req>
+    <div class="title"><span class="num">39.</span>有新内容需要审批时，怎么通知您？<span class="req">★</span></div>
+    <div class="opts">
+      <label><input type="radio" name="q39_notify" value="邮件">邮件</label>
+      <label><input type="radio" name="q39_notify" value="短信">短信</label>
+      <label><input type="radio" name="q39_notify" value="两者都要">两者都要</label>
+    </div>
+    <span class="err">请选择一项。</span>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">40.</span>您希望每月多写哪一类主题？（可跳过）</div>
+    <div class="grid" data-name="q40_topics" data-rows="3" data-numbered data-cols="主题"></div>
+  </div>
+
+  <div class="q">
+    <div class="title"><span class="num">41.</span>有没有季节性的活动或截止日？（可跳过）</div>
+    <p class="hint">例：报税季、RRSP 季、开学季</p>
+    <div class="grid" data-name="q41_season" data-rows="3" data-cols="活动或截止日|大约日期"></div>
+  </div>
+</section>
+
+<div class="card">
+  <div class="actions">
+    <button type="submit" class="primary">提交问卷</button>
+    <button type="button" class="ghost" id="printBtn">打印或存成 PDF</button>
+    <button type="button" class="ghost" id="clearBtn">清空重填</button>
+  </div>
+  <p class="hint" id="submitMsg" style="margin:12px 0 0"></p>
+</div>
+
+<div class="card done-box" id="doneBox" role="status">
+  <h2 style="margin-top:0">谢谢您！</h2>
+  <p>我们收到问卷后，会在 2 个工作日内整理出一份网站规划，包括网站有哪几页、每页讲什么、客户常问的问题怎么回答，发到您的门户里请您确认。确认之后，我们再开始设计。</p>
+  <p id="fallbackNote" class="hint" hidden>在线提交功能还在准备中。请点下面的按钮下载您的答案，并把下载的文件和要上传的照片一起发给我们。</p>
+  <div class="actions" id="fallbackActions" hidden><button type="button" class="primary" id="downloadBtn">下载我的答案</button></div>
+</div>
+
+</form>
+</main>
+
+<footer>BizPilot · 您填写的信息只用于制作您的网站</footer>
+
+<script>
+(function(){
+  /* ===== 设置 Settings =====
+     API_BASE：同站的提交接口（Cloudflare Pages Function）。
+     第一步存答案到数据库，第二步把答案和文件交给 Google Apps Script 存进 Drive 并发邮件通知。
+     接口未配置时（返回 503），提交后会让客户下载一份答案文件（JSON）。
+     上线地址：bizpilot.co/onboarding/website-design/
+     （/onboarding/ 下按服务分路径，以后其他服务另开子路径，各自独立的 STORE_KEY 与 _service 值） */
+  var API_BASE = "/api/onboarding/website-design";
+  var MAX_FILE = 15 * 1024 * 1024, MAX_TOTAL = 25 * 1024 * 1024;
+  var STORE_KEY = "bizpilot_website_design_onboarding_v1";
+
+  var form = document.getElementById("f");
+
+  /* 1. 生成多行表格 */
+  document.querySelectorAll(".grid").forEach(function(g){
+    var cols = g.dataset.cols.split("|");
+    var types = (g.dataset.types || "").split("|");
+    var numbered = g.hasAttribute("data-numbered");
+    var tmpl = (numbered ? "28px " : "") + cols.map(function(){return "1fr";}).join(" ");
+    g.dataset.tmpl = tmpl;
+    if (cols.length === 1) g.classList.add("single");
+    var head = document.createElement("div");
+    head.className = "head"; head.style.gridTemplateColumns = tmpl;
+    head.innerHTML = (numbered ? "<span></span>" : "") + cols.map(function(c){return "<span>"+c+"</span>";}).join("");
+    g.appendChild(head);
+    g.addRow = function(){
+      var i = g.querySelectorAll(".row").length + 1;
+      var row = document.createElement("div");
+      row.className = "row"; row.style.gridTemplateColumns = tmpl;
+      var html = numbered ? '<span class="idx">'+i+'</span>' : "";
+      cols.forEach(function(c, k){
+        var t = types[k] || "text";
+        var nm = g.dataset.name + "_" + i + "_" + (k+1);
+        html += '<input type="'+t+'" name="'+nm+'" placeholder="'+c+'" aria-label="'+c+' 第'+i+'行">';
+      });
+      row.innerHTML = html;
+      var btn = g.querySelector(".addrow");
+      g.insertBefore(row, btn || null);
+      return row;
+    };
+    var n = parseInt(g.dataset.rows, 10) || 1;
+    for (var r = 0; r < n; r++) g.addRow();
+    if (g.hasAttribute("data-add")) {
+      var b = document.createElement("button");
+      b.type = "button"; b.className = "addrow"; b.textContent = "＋ 再加一行";
+      b.addEventListener("click", function(){ g.addRow().querySelector("input").focus(); save(); });
+      g.appendChild(b);
+    }
+  });
+
+  /* 2. 条件显示 */
+  function toggle(){
+    document.querySelectorAll("[data-show-if]").forEach(function(el){
+      var show = el.dataset.showIf.split("||").some(function(c){
+        var k = c.indexOf("="), n = c.slice(0,k), v = c.slice(k+1);
+        return !!form.querySelector('input[name="'+n+'"][value="'+v+'"]:checked');
+      });
+      el.hidden = !show;
+    });
+  }
+
+  /* 3. 自动保存（只存文字和选项，文件无法保存） */
+  var saveTimer;
+  function serialize(){
+    var data = {}, rows = {};
+    Array.prototype.forEach.call(form.elements, function(el){
+      if (!el.name || el.type === "file" || el.type === "submit" || el.type === "button") return;
+      if ((el.type === "checkbox" || el.type === "radio")) {
+        if (!el.checked) return;
+        (data[el.name] = data[el.name] || []).push(el.value);
+      } else if (el.value.trim() !== "") {
+        data[el.name] = el.value.trim();
+      }
+    });
+    document.querySelectorAll(".grid[data-add]").forEach(function(g){ rows[g.dataset.name] = g.querySelectorAll(".row").length; });
+    return {data: data, rows: rows};
+  }
+  function saveNow(){
+    clearTimeout(saveTimer);
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(serialize())); } catch(e) {}
+  }
+  window.addEventListener("pagehide", saveNow);
+  document.addEventListener("visibilitychange", function(){ if (document.visibilityState === "hidden") saveNow(); });
+  function save(){
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(function(){
+      try {
+        localStorage.setItem(STORE_KEY, JSON.stringify(serialize()));
+        var t = new Date();
+        document.getElementById("saveText").textContent = "已自动保存 " + t.getHours() + ":" + String(t.getMinutes()).padStart(2,"0");
+      } catch(e) {
+        document.getElementById("saveText").textContent = "";
+      }
+    }, 400);
+  }
+  function restore(){
+    var raw;
+    try { raw = localStorage.getItem(STORE_KEY); } catch(e) { return; }
+    if (!raw) return;
+    var saved; try { saved = JSON.parse(raw); } catch(e) { return; }
+    var rows = saved.rows || {};
+    document.querySelectorAll(".grid[data-add]").forEach(function(g){
+      var want = rows[g.dataset.name] || 0;
+      while (g.querySelectorAll(".row").length < want) g.addRow();
+    });
+    var data = saved.data || {};
+    Object.keys(data).forEach(function(name){
+      var v = data[name];
+      var els = form.querySelectorAll('[name="'+name+'"]');
+      els.forEach(function(el){
+        if (el.type === "checkbox" || el.type === "radio") el.checked = Array.isArray(v) && v.indexOf(el.value) > -1;
+        else el.value = v;
+      });
+    });
+  }
+
+  /* 4. 文件名显示 */
+  form.querySelectorAll('input[type="file"]').forEach(function(inp){
+    inp.addEventListener("change", function(){
+      var box = inp.parentNode.querySelector(".files");
+      box.textContent = inp.files.length ? "已选择：" + Array.prototype.map.call(inp.files, function(f){return f.name;}).join("、") : "";
+      updateProgress();
+    });
+  });
+
+  /* 5. 必填检查与进度 */
+  function visible(el){ return !el.closest("[hidden]"); }
+  function answered(q){
+    if (q.hasAttribute("data-all")) {
+      return Array.prototype.every.call(q.querySelectorAll("[data-key]"), function(el){
+        var v = el.value.trim();
+        return v !== "" && (el.type !== "email" || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+      });
+    }
+    var ok = false;
+    q.querySelectorAll("input, textarea, select").forEach(function(el){
+      if (ok) return;
+      if (el.type === "checkbox" || el.type === "radio") { if (el.checked) ok = true; }
+      else if (el.type === "file") { if (el.files && el.files.length) ok = true; }
+      else if (el.hasAttribute("data-key") || !q.querySelector("[data-key]")) { if (el.value.trim() !== "") ok = true; }
+    });
+    return ok;
+  }
+  function requiredQs(){ return Array.prototype.filter.call(form.querySelectorAll(".q[data-req]"), visible); }
+  function updateProgress(){
+    var qs = requiredQs(), done = qs.filter(answered).length;
+    document.getElementById("pText").textContent = "必填题完成 " + done + " / " + qs.length;
+    document.getElementById("barFill").style.width = (qs.length ? Math.round(done/qs.length*100) : 0) + "%";
+    document.querySelectorAll("section.card").forEach(function(s){
+      var sq = Array.prototype.filter.call(s.querySelectorAll(".q[data-req]"), visible);
+      var chip = document.querySelector('.chips a[href="#'+s.id+'"]');
+      if (chip) chip.classList.toggle("done", sq.length > 0 && sq.every(answered) || (sq.length === 0 && s.id === "s2" && form.querySelector('input[name="q7_licensed"]:checked')));
+    });
+    qs.forEach(function(q){ if (q.classList.contains("missing") && answered(q)) q.classList.remove("missing"); });
+  }
+
+  /* 6. 导航 */
+  var chips = document.getElementById("chips");
+  document.querySelectorAll("section.card").forEach(function(s){
+    var a = document.createElement("a"); a.href = "#" + s.id; a.textContent = s.dataset.title; chips.appendChild(a);
+  });
+
+  /* 7. 第 24 题最多选 3 个词 */
+  document.getElementById("q24words").addEventListener("change", function(e){
+    var checked = this.querySelectorAll("input:checked");
+    if (checked.length > 3) { e.target.checked = false; }
+  });
+
+  form.addEventListener("input", function(){ toggle(); updateProgress(); save(); });
+  form.addEventListener("change", function(){ toggle(); updateProgress(); save(); });
+
+  document.getElementById("printBtn").addEventListener("click", function(){ window.print(); });
+  document.getElementById("clearBtn").addEventListener("click", function(){
+    if (!window.confirm("确定要清空所有已填写的内容吗？")) return;
+    try { localStorage.removeItem(STORE_KEY); } catch(e) {}
+    form.reset();
+    form.querySelectorAll(".files").forEach(function(b){ b.textContent = ""; });
+    toggle(); updateProgress();
+    document.getElementById("saveText").textContent = "";
+    window.scrollTo(0,0);
+  });
+
+  /* 8. 提交 */
+  function downloadAnswers(){
+    var payload = serialize().data;
+    payload._submitted_at = new Date().toISOString();
+    payload._files_selected = {};
+    form.querySelectorAll('input[type="file"]').forEach(function(inp){
+      if (inp.files.length) payload._files_selected[inp.name] = Array.prototype.map.call(inp.files, function(f){return f.name;});
+    });
+    var blob = new Blob([JSON.stringify(payload, null, 2)], {type: "application/json"});
+    var a = document.createElement("a");
+    var who = (payload.q1_legal_name || "client").replace(/[\\/:*?"<>|\s]+/g, "_");
+    a.href = URL.createObjectURL(blob); a.download = "BizPilot_网站设计问卷_" + who + ".json";
+    document.body.appendChild(a); a.click(); a.remove();
+  }
+  document.getElementById("downloadBtn").addEventListener("click", downloadAnswers);
+
+  form.addEventListener("submit", function(e){
+    e.preventDefault();
+    var missing = requiredQs().filter(function(q){ return !answered(q); });
+    form.querySelectorAll(".q.missing").forEach(function(q){ q.classList.remove("missing"); });
+    var msg = document.getElementById("submitMsg");
+    if (missing.length) {
+      missing.forEach(function(q){ q.classList.add("missing"); });
+      msg.textContent = "还有 " + missing.length + " 道必填题没有填写，已用红色标出。";
+      missing[0].scrollIntoView({behavior: "smooth", block: "center"});
+      return;
+    }
+    submitAll();
+  });
+
+  /* 9. 在线提交 */
+  var submissionId = null, busy = false;
+  var submitBtn = form.querySelector('button[type="submit"]');
+  function setMsg(t){ document.getElementById("submitMsg").textContent = t; }
+  function showDone(fallback){
+    var done = document.getElementById("doneBox");
+    done.classList.add("show");
+    document.getElementById("fallbackNote").hidden = !fallback;
+    document.getElementById("fallbackActions").hidden = !fallback;
+    setMsg("");
+    done.scrollIntoView({behavior: "smooth"});
+  }
+  function own(q, el){ return el.closest(".q") === q && visible(el); }
+  function readable(){
+    var out = [];
+    form.querySelectorAll(".q").forEach(function(q){
+      if (!visible(q)) return;
+      var t = q.querySelector(".title"); if (!t || t.closest(".q") !== q) return;
+      var title = t.textContent.replace(/★/g, "").trim().replace(/^(\d+\.)\s*/, "$1 "), lines = [], seen = [];
+      q.querySelectorAll(".grid").forEach(function(g){
+        if (!own(q, g)) return;
+        var cols = (g.dataset.cols || "").split("|");
+        g.querySelectorAll(".row").forEach(function(r, ri){
+          var vals = Array.prototype.map.call(r.querySelectorAll("input"), function(i){ return i.value.trim(); });
+          if (!vals.some(Boolean)) return;
+          lines.push((ri + 1) + ". " + vals.map(function(v, k){ return cols.length > 1 ? cols[k] + "：" + (v || "（空）") : v; }).join("；"));
+        });
+        g.querySelectorAll("input").forEach(function(i){ seen.push(i); });
+      });
+      q.querySelectorAll("input, textarea, select").forEach(function(el){
+        if (seen.indexOf(el) > -1 || el.type === "hidden" || el.name === "_hp" || !own(q, el)) return;
+        if (el.type === "checkbox" || el.type === "radio") { if (el.checked) lines.push("✓ " + el.value); return; }
+        if (el.type === "file") { if (el.files.length) lines.push("附件：" + Array.prototype.map.call(el.files, function(f){ return f.name; }).join("、")); return; }
+        var v = el.value.trim(); if (!v) return;
+        var lab = el.getAttribute("aria-label") || "";
+        lines.push((lab ? lab + "：" : "") + v);
+      });
+      out.push({q: title, a: lines});
+    });
+    return out;
+  }
+  function fileList(){
+    var list = [];
+    form.querySelectorAll('input[type="file"]').forEach(function(inp){
+      if (!visible(inp)) return;
+      Array.prototype.forEach.call(inp.files, function(f){ list.push({field: inp.name, file: f}); });
+    });
+    return list;
+  }
+  function shrink(item){
+    var f = item.file;
+    var photo = /^image\/(jpeg|png|webp)$/.test(f.type) && item.field !== "q28_logo" && f.size > 1.2 * 1024 * 1024;
+    if (!photo || !window.createImageBitmap) return Promise.resolve(f);
+    return createImageBitmap(f).then(function(img){
+      var max = 2400, k = Math.min(1, max / Math.max(img.width, img.height));
+      var c = document.createElement("canvas");
+      c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+      c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+      return new Promise(function(res){
+        c.toBlob(function(b){
+          if (!b || b.size >= f.size) return res(f);
+          res(new File([b], f.name.replace(/\.[^.]+$/, "") + ".jpg", {type: "image/jpeg"}));
+        }, "image/jpeg", 0.85);
+      });
+    }).catch(function(){ return f; });
+  }
+  function toB64(f){
+    return new Promise(function(res, rej){
+      var r = new FileReader();
+      r.onload = function(){ res(String(r.result).split(",")[1] || ""); };
+      r.onerror = function(){ rej(r.error); };
+      r.readAsDataURL(f);
+    });
+  }
+  function basePayload(){
+    var data = serialize().data;
+    return {
+      service: "website-design", form_version: data._form_version || "", hp: data._hp || "",
+      contact: {name: data.c_name || "", email: data.c_email || "", phone: data.c_phone || "", business: data.q1_display_name || data.q1_legal_name || ""},
+      answers: data, readable: readable()
+    };
+  }
+  function submitAll(){
+    if (busy) return;
+    var items = fileList();
+    var big = items.filter(function(i){ return i.file.size > MAX_FILE && !/^image\//.test(i.file.type); });
+    if (big.length) { setMsg("这些文件超过 15MB，请先去掉，之后再用邮件发给我们：" + big.map(function(i){ return i.file.name; }).join("、")); return; }
+    busy = true; submitBtn.disabled = true;
+    setMsg(items.length ? "正在整理照片和文件……" : "正在提交，请稍候……");
+    var payload = basePayload();
+    Promise.all(items.map(shrink)).then(function(files){
+      var total = files.reduce(function(n, f){ return n + f.size; }, 0);
+      var tooBig = files.filter(function(f){ return f.size > MAX_FILE; });
+      if (tooBig.length || total > MAX_TOTAL) throw {user: "附件加起来超过 25MB（单个文件不能超过 15MB）。请先去掉一些大文件提交，其余的之后再用邮件发给我们。"};
+      payload.files_manifest = files.map(function(f, i){ return {field: items[i].field, name: f.name, type: f.type, size: f.size}; });
+      return Promise.all(files.map(toB64)).then(function(b64){
+        payload.files = files.map(function(f, i){ return {field: items[i].field, name: f.name, type: f.type || "application/octet-stream", size: f.size, data: b64[i]}; });
+      });
+    }).then(function(){
+      if (submissionId) return {ok: true, id: submissionId};
+      var head = JSON.parse(JSON.stringify(payload)); delete head.files;
+      return fetch(API_BASE + "/answers", {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify(head)})
+        .then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ j.status = r.status; return j; }); });
+    }).then(function(r){
+      if (r.status === 503 && r.configured === false) throw {fallback: true};
+      if (!r.ok || !r.id) throw {user: r.error || "提交没有成功，您填写的内容仍然保存在这里，请稍后再试。"};
+      submissionId = r.id;
+      payload.id = submissionId;
+      return upload(payload);
+    }).then(function(){
+      try { localStorage.removeItem(STORE_KEY); } catch(e) {}
+      showDone(false);
+    }).catch(function(err){
+      if (err && err.fallback) { showDone(true); return; }
+      setMsg((err && err.user) || "网络中断，提交没有完成。您填写的内容仍然保存在这里，请再点一次「提交问卷」。");
+    }).then(function(){ busy = false; submitBtn.disabled = false; });
+  }
+  function upload(payload){
+    return new Promise(function(res, rej){
+      var x = new XMLHttpRequest();
+      x.open("POST", API_BASE + "/files?id=" + encodeURIComponent(payload.id));
+      x.setRequestHeader("content-type", "text/plain;charset=utf-8");
+      x.upload.onprogress = function(e){ if (e.lengthComputable) setMsg("正在上传，" + Math.round(e.loaded / e.total * 100) + "%，请不要关闭页面……"); };
+      x.upload.onload = function(){ setMsg("已上传，正在存档，大约需要半分钟……"); };
+      x.onload = function(){
+        var j = {}; try { j = JSON.parse(x.responseText); } catch(e) {}
+        if (x.status === 200 && j.ok) res(j);
+        else rej({user: "您的答案已经收到，但文件存档没有完成。请再点一次「提交问卷」重试，不需要重新填写。"});
+      };
+      x.onerror = function(){ rej({user: "网络中断，文件没有传完。您的答案已经收到，请再点一次「提交问卷」重试。"}); };
+      x.send(JSON.stringify(payload));
+    });
+  }
+
+  restore(); toggle(); updateProgress();
+})();
+</script>
+</body>
+</html>
