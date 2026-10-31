@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一个人，三个 AI 员工：免费领取 12 条做法 | BizPilot</title>
+<meta name="description" content="一人公司用 Claude 搭 AI 运营系统，18 天踩了 28 个坑，留下 12 条做法。留个邮箱，免费领取清单。">
+<link rel="icon" href="/favicon.ico">
+<style>
+  :root { --navy:#1E2761; --ice:#CADCFC; --teal:#0D9488; --ink:#1f2433; --muted:#5b6275; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:Poppins, Inter, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", sans-serif; color:var(--ink); background:#f5f7fc; line-height:1.7; }
+  a { color:inherit; }
+  .hero { background:var(--navy); color:#fff; padding:28px 20px 56px; }
+  .wrap { max-width:960px; margin:0 auto; }
+  .top { display:flex; justify-content:space-between; align-items:center; margin-bottom:40px; }
+  .top img { height:32px; display:block; }
+  .top a.home { color:var(--ice); font-size:14px; text-decoration:none; }
+  .grid { display:grid; grid-template-columns:1.15fr 1fr; gap:40px; align-items:start; }
+  .kicker { color:var(--ice); letter-spacing:.06em; font-size:14px; margin:0 0 8px; }
+  h1 { font-size:38px; line-height:1.25; margin:0 0 14px; }
+  .sub { color:var(--ice); font-size:18px; margin:0 0 22px; }
+  .note { border-left:3px solid var(--teal); padding:4px 0 4px 14px; color:#e8eefc; font-size:15px; }
+  .card { background:#fff; color:var(--ink); border-radius:14px; padding:26px; box-shadow:0 12px 40px rgba(10,20,60,.25); }
+  .card h2 { font-size:20px; margin:0 0 6px; color:var(--navy); }
+  .card p.lead { margin:0 0 16px; color:var(--muted); font-size:14px; }
+  label { display:block; font-size:14px; margin:12px 0 4px; font-weight:600; }
+  input[type=text], input[type=email] { width:100%; padding:12px 14px; border:1px solid #cfd6e6; border-radius:8px; font-size:16px; }
+  input:focus { outline:2px solid var(--teal); border-color:var(--teal); }
+  .check { display:flex; gap:10px; align-items:flex-start; font-weight:400; font-size:13.5px; color:var(--muted); margin-top:14px; }
+  .check input { margin-top:5px; }
+  button { width:100%; margin-top:18px; padding:14px; border:0; border-radius:8px; background:var(--navy); color:#fff; font-size:17px; font-weight:700; cursor:pointer; }
+  button[disabled] { opacity:.6; cursor:wait; }
+  .fine { font-size:12.5px; color:var(--muted); margin-top:12px; }
+  .err { color:#b42318; font-size:14px; margin-top:10px; min-height:1em; }
+  .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  .done { display:none; }
+  .done .big { display:block; text-align:center; text-decoration:none; background:var(--teal); color:#fff; border-radius:8px; padding:14px; font-weight:700; font-size:17px; margin:14px 0; }
+  .done .next { display:block; text-align:center; text-decoration:none; background:var(--navy); color:#fff; border-radius:8px; padding:12px; font-weight:700; margin-top:10px; }
+  section.list { padding:48px 20px; }
+  section.list h2 { color:var(--navy); font-size:24px; margin:0 0 6px; }
+  section.list p.intro { color:var(--muted); margin:0 0 22px; }
+  ol.items { list-style:none; padding:0; margin:0; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  ol.items li { background:#fff; border:1px solid #e1e6f2; border-radius:10px; padding:14px 16px; display:flex; gap:12px; }
+  ol.items .n { flex:0 0 28px; height:28px; border-radius:50%; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; }
+  ol.items b { display:block; color:var(--navy); }
+  ol.items span.t { font-size:14px; color:var(--muted); }
+  footer { text-align:center; color:var(--muted); font-size:13px; padding:28px 20px 40px; }
+  @media (max-width:760px) {
+    .grid { grid-template-columns:1fr; gap:28px; }
+    h1 { font-size:30px; }
+    ol.items { grid-template-columns:1fr; }
+    .top { margin-bottom:28px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="top">
+      <a href="/"><img src="/images/bizpilot-logo.png" alt="BizPilot"></a>
+      <a class="home" href="/">bizpilot.co</a>
+    </div>
+    <div class="grid">
+      <div>
+        <p class="kicker">一人公司 · AI 运营实录</p>
+        <h1>一个人，三个 AI 员工</h1>
+        <p class="sub">我用 Claude 搭了一套 AI 运营系统。18 天踩了 28 个坑，最后留下 12 条做法。整理成一份清单，免费送你。</p>
+        <p class="note">先说清楚：这不是全自动系统。AI 负责起草、登记、提醒；关掉一件事、对外发信、网站上线，都由人批准。清单讲的就是怎么分这个工。</p>
+      </div>
+
+      <div class="card" id="card">
+        <form id="f" class="form" novalidate>
+          <h2>免费领取《12 条做法》清单</h2>
+          <p class="lead">PDF，4 页。每条都写了：做法、为什么、今天就能做的一步。</p>
+          <label for="name">怎么称呼你（可不填）</label>
+          <input id="name" name="name" type="text" maxlength="60" autocomplete="given-name">
+          <label for="email">邮箱</label>
+          <input id="email" name="email" type="email" maxlength="200" autocomplete="email" required>
+          <div class="hp" aria-hidden="true"><label for="website">网站</label><input id="website" name="website" type="text" tabindex="-1" autocomplete="off"></div>
+          <label class="check"><input id="consent" name="consent" type="checkbox"> <span>我愿意以后收到 BizPilot 的 AI 经营实操邮件。可以随时退订。</span></label>
+          <button id="btn" type="submit">免费领取清单</button>
+          <div class="err" id="err" role="alert"></div>
+          <p class="fine">提交后页面上可以直接下载，我们也会把清单发到这个邮箱。不勾选上面那一项，我们只发这一封。</p>
+        </form>
+
+        <div class="done" id="done">
+          <h2>清单准备好了</h2>
+          <p class="lead">点下面的按钮下载。一份副本几分钟内会发到你的邮箱；没看到的话，看一下垃圾邮件箱。</p>
+          <a class="big" id="dl" href="/ai-team/bizpilot-ai-team-12-practices.pdf" download="BizPilot《12条做法》清单.pdf">下载 PDF 清单</a>
+          <p class="lead" style="margin-top:18px">12 条不用一次做完。先花 3 分钟，看清你的生意现在适合做到哪一步。</p>
+          <a class="next" href="/ai-automation-stage-test">3分钟判断我的自动化阶段</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section class="list">
+  <div class="wrap">
+    <h2>清单里的 12 条</h2>
+    <p class="intro">标题先给你看。每条怎么做、为什么、今天的第一步，在清单里。</p>
+    <ol class="items">
+      <li><span class="n">1</span><span><b>按责任分角色，不按技术分</b><span class="t">一个 AI 什么都管，记录就会打架。</span></span></li>
+      <li><span class="n">2</span><span><b>交接只追加，不改别人的行</b><span class="t">两个对话同时写一份文件，会互相覆盖。</span></span></li>
+      <li><span class="n">3</span><span><b>每个事实只有一个家</b><span class="t">同一件事记两处，不出一天就对不上。</span></span></li>
+      <li><span class="n">4</span><span><b>关闭权留给人</b><span class="t">AI 可以报完成，关不关由你点。</span></span></li>
+      <li><span class="n">5</span><span><b>交办写完成标准</b><span class="t">不写清楚，AI 会按它自己的理解收工。</span></span></li>
+      <li><span class="n">6</span><span><b>动作分四级</b><span class="t">对外的、不可逆的，AI 只准备不动手。</span></span></li>
+      <li><span class="n">7</span><span><b>草稿只存不发</b><span class="t">最后点发送的，永远是人。</span></span></li>
+      <li><span class="n">8</span><span><b>开工只读必要的</b><span class="t">用量见底，往往不是因为活多。</span></span></li>
+      <li><span class="n">9</span><span><b>定时任务都登记</b><span class="t">停掉容易，恢复会被忘。</span></span></li>
+      <li><span class="n">10</span><span><b>失败两次就停</b><span class="t">原样重试第三次，只会再失败一次。</span></span></li>
+      <li><span class="n">11</span><span><b>每周删旧</b><span class="t">规则只加不减，系统会被自己压垮。</span></span></li>
+      <li><span class="n">12</span><span><b>销售先于系统</b><span class="t">我所有的自动任务里，没有一个管销售。</span></span></li>
+    </ol>
+  </div>
+</section>
+
+<footer>
+  分享的是作者自己经营后台的做法，不构成任何移民、法律或财务建议。<br>
+  Crystal Jing Chen, RCIC · BizPilot · <a href="/">bizpilot.co</a>
+</footer>
+
+<script>
+(function () {
+  var f = document.getElementById('f'), btn = document.getElementById('btn'), err = document.getElementById('err');
+  var params = new URLSearchParams(location.search);
+  var utm = {};
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'ref'].forEach(function (k) { if (params.get(k)) utm[k] = params.get(k).slice(0, 100); });
+
+  function showDone() {
+    f.style.display = 'none';
+    document.getElementById('done').style.display = 'block';
+  }
+
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    err.textContent = '';
+    var email = f.email.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { err.textContent = '请填写有效的邮箱。'; f.email.focus(); return; }
+    btn.disabled = true; btn.textContent = '正在提交…';
+    var consentText = f.consent.parentNode.textContent.trim();
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        magnet: 'ai-team-12',
+        name: f.name.value.trim(),
+        email: email,
+        consent: f.consent.checked,
+        consent_text: f.consent.checked ? consentText : '',
+        hp: f.website.value,
+        utm: utm,
+        page: location.pathname
+      })
+    }).then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      .then(function (d) {
+        if (d && d.ok) { showDone(); return; }
+        btn.disabled = false; btn.textContent = '免费领取清单';
+        err.textContent = (d && d.error) || '提交没有成功，请稍后再试。';
+      })
+      .catch(function () {
+        btn.disabled = false; btn.textContent = '免费领取清单';
+        err.textContent = '网络好像断了，请稍后再试。';
+      });
+  });
+})();
+</script>
+</body>
+</html>
