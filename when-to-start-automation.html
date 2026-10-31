@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI 自动化什么时候开始最合适？企业“临界阶段”判断指南 | BizPilot</title>
+<meta name="description" content="什么时候该开始 AI 自动化？如果你正处于流程趋稳但边界未清晰的阶段，本页帮你判断是否进入“临界阶段”。适合准备系统化的企业决策者阅读。">
+
+<link rel="canonical" href="https://bizpilot.co/when-to-start-automation">
+<link rel="icon" href="/favicon.ico">
+<style>
+:root{--navy:#1E2761;--ice:#CADCFC;--teal:#0D9488;--ink:#1f2433;--muted:#5b6275;--line:#e1e6f2}
+*{box-sizing:border-box}
+body{margin:0;font-family:Poppins,Inter,"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;color:var(--ink);background:#f5f7fc;line-height:1.75}
+a{color:inherit}
+.wrap{max-width:860px;margin:0 auto;padding:0 20px}
+header.hero{background:var(--navy);color:#fff;padding:24px 0 56px}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+.top img{height:32px;display:block}
+.top a.home{color:var(--ice);font-size:14px;text-decoration:none}
+.badge{display:inline-block;background:rgba(202,220,252,.15);color:var(--ice);border-radius:999px;padding:4px 14px;font-size:13px;letter-spacing:.06em;margin-bottom:14px}
+h1{font-size:36px;line-height:1.3;margin:0 0 10px}
+.sub{color:var(--ice);font-size:19px;margin:0}
+.lead{font-size:17px;margin:22px 0 0;color:#e8eefc;white-space:pre-line}
+section{padding:40px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+h2{color:var(--navy);font-size:24px;line-height:1.4;margin:0 0 16px}
+p{margin:0 0 14px}
+.pre{white-space:pre-line}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:8px}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px}
+.card b{display:block;color:var(--navy);margin-bottom:6px;font-size:17px}
+.card .k{color:var(--teal);font-size:13px;font-weight:700;letter-spacing:.06em;display:block;margin-bottom:4px}
+ul.check{list-style:none;padding:0;margin:0 0 14px}
+ul.check li{background:#fff;border:1px solid var(--line);border-radius:10px;padding:12px 16px 12px 44px;margin-bottom:10px;position:relative}
+ul.check li:before{content:"";position:absolute;left:16px;top:19px;width:12px;height:12px;border-radius:50%;background:var(--teal)}
+.formula{background:var(--navy);color:#fff;border-radius:12px;padding:18px 22px;font-size:18px;font-weight:600;margin:10px 0 14px}
+.note{border-left:3px solid var(--teal);padding:4px 0 4px 14px;color:var(--muted)}
+table.cmp{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+table.cmp th,table.cmp td{padding:12px 16px;text-align:left;border-bottom:1px solid var(--line)}
+table.cmp th{background:#eef2fb;color:var(--navy)}
+.cta{background:var(--navy);color:#fff;border-radius:14px;padding:28px;margin:6px 0}
+.cta h2{color:#fff}
+.cta p{color:#e8eefc}
+.btn{display:inline-block;background:#fff;color:var(--navy);font-weight:700;text-decoration:none;border-radius:8px;padding:13px 26px;margin-top:6px}
+.closing{text-align:center;font-size:20px;font-weight:600;color:var(--navy);white-space:pre-line}
+details{background:#fff;border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:10px}
+details summary{cursor:pointer;font-weight:600;color:var(--navy)}
+details div{margin-top:10px;white-space:pre-line;color:var(--ink)}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:28px 20px 40px}
+@media(max-width:700px){h1{font-size:28px}.sub{font-size:17px}h2{font-size:21px}}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "什么时候算是 AI 自动化的“临界阶段”？", "acceptedAnswer": {"@type": "Answer", "text": "当流程已基本清晰，但结果标准或风险边界尚未完全稳定时，通常处于临界阶段。在这个阶段，过早系统化可能放大判断误差。"}}, {"@type": "Question", "name": "为什么在临界阶段不建议马上系统化？", "acceptedAnswer": {"@type": "Answer", "text": "自动化本质是放大结构。如果判断尚未完全清晰，系统会放大错误，而不是优化结果。"}}, {"@type": "Question", "name": "如何判断现在该不该开始系统化？", "acceptedAnswer": {"@type": "Answer", "text": "可以从三个角度评估：流程是否稳定；结果标准是否明确；错误代价是否可控。 如果其中任一仍存在较大不确定性，建议先校准判断。"}}, {"@type": "Question", "name": "临界阶段最重要的行动是什么？", "acceptedAnswer": {"@type": "Answer", "text": "不是寻找更多工具，而是提升决策清晰度。 在正确的时间开始系统化，比提前行动更重要。"}}]}</script>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="top"><a href="/"><img src="/images/bizpilot-logo.png" alt="BizPilot"></a><a class="home" href="/">bizpilot.co</a></div>
+<span class="badge">你的测试结果</span><h1>你正处在一个“临界阶段”</h1><p class="sub">不是工具阶段，是决策校准阶段。</p>
+</div></header>
+<main class="wrap">
+<section><h2>什么是 AI 自动化的“临界阶段”？</h2><p class="pre">临界阶段，是指企业流程已经趋于稳定，
+但决策标准仍未完全清晰的阶段。
+
+此时系统化不是为了加速，
+而是为了校准。</p><p class="pre">你已经开始接近系统化的门口。
+流程大致清晰。
+但边界仍未完全稳定。
+
+在这个阶段，
+最大的风险不是“没用 AI”。
+
+而是：
+在判断尚未完全清晰时过早放大。
+
+走对，会节省大量精力。
+走错，会把判断错误放大成结构性问题。</p><p class="note">临界阶段，不是加速阶段。是校准阶段。</p></section><section><h2>你可能处于临界阶段，如果你：</h2><ul class="check"><li>流程大体固定，但仍频繁微调</li><li>结果指标已出现，但尚未完全稳定</li><li>已经尝试工具，但效果不持续</li><li>感觉“可以系统化”，却又担心时机不对</li></ul><p>如果以上情况出现 2 条以上，你可能正处在“系统化临界阶段”。</p></section><section><h2>为什么临界阶段最容易出错？</h2><p class="pre">临界阶段的问题不是“做得不够多”，
+而是：
+
+过早放大未校准的结构。
+
+系统会放大效率，
+但也会放大错误。</p></section><section><h2>BizPilot 临界阶段判断公式</h2><div class="formula">系统化时机 = 流程稳定度 × 决策清晰度</div><p>当两者均达到 70% 以上时，才适合进入自动化建设阶段。</p></section><section><h2>你现在更适合做的事</h2><ul class="check"><li>看真实案例，理解顺序错误如何发生</li><li>观察他人何时决定系统化</li><li>学会识别：何时该动，何时该等</li></ul></section><section><div class="cta"><h2>临界阶段最需要的，是校准判断，不是急着上系统</h2><p>AI经营力课程每堂课都配一份AI引导问卷，专门用来帮你把模糊的判断校准清楚，这正是临界阶段最需要的东西。加入会员社区，看看其他企业主是怎么在这个阶段做决定的。</p><a class="btn" href="/ai-jingyingli">加入AI 经营力会员社区</a></div><p class="closing" style="margin-top:28px">判断不是天赋。是训练。</p><p style="text-align:center;color:var(--muted)">比听工具讲解更重要的，是看到真实决策过程。</p></section>
+<section><h2>常见问题（FAQ）</h2><details><summary>什么时候算是 AI 自动化的“临界阶段”？</summary><div>当流程已基本清晰，但结果标准或风险边界尚未完全稳定时，通常处于临界阶段。在这个阶段，过早系统化可能放大判断误差。</div></details><details><summary>为什么在临界阶段不建议马上系统化？</summary><div>自动化本质是放大结构。如果判断尚未完全清晰，系统会放大错误，而不是优化结果。</div></details><details><summary>如何判断现在该不该开始系统化？</summary><div>可以从三个角度评估：流程是否稳定；结果标准是否明确；错误代价是否可控。
+如果其中任一仍存在较大不确定性，建议先校准判断。</div></details><details><summary>临界阶段最重要的行动是什么？</summary><div>不是寻找更多工具，而是提升决策清晰度。
+在正确的时间开始系统化，比提前行动更重要。</div></details></section>
+</main>
+<footer>BizPilot · <a href="/">bizpilot.co</a> · <a href="/ai-automation-guide">AI 自动化完整指南</a> · <a href="/contact">关于与联系</a></footer>
+</body>
+</html>
