@@ -133,6 +133,14 @@
   function showDone() {
     f.style.display = 'none';
     document.getElementById('done').style.display = 'block';
+    // 阶段测试最后一页要邮箱：把刚填的邮箱、称呼带过去，对方不用再打一遍
+    var q = new URLSearchParams();
+    q.set('email', f.email.value.trim());
+    if (f.name.value.trim()) q.set('name', f.name.value.trim());
+    q.set('utm_source', utm.utm_source || 'ai-team-12');
+    if (utm.utm_content) q.set('utm_content', utm.utm_content);
+    var next = document.querySelector('#done a.next');
+    if (next) next.href = '/ai-automation-stage-test?' + q.toString();
   }
 
   f.addEventListener('submit', function (e) {
